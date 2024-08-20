@@ -68,15 +68,27 @@ function loadMenu(path) {
                 </a>
                 </li>
                 <li class="nav-item">
+                <a class="nav-link " href=${path.etudiantPage}>
+                   <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Etudiant</span>
+                </a>
+                </li>
+                <li class="nav-item">
                 <a class="nav-link " href=${path.coursPage}>
                     <i class="fa-solid fa-book"></i>
                     <span>Cours</span>
                 </a>
                 </li>
                  <li class="nav-item">
+<<<<<<< HEAD
                 <a class="nav-link " href=${path.etudiantPage}>
                     <i class="fa-solid fa-book"></i>
                     <span>Etudiant</span>
+=======
+                <a class="nav-link " href=${path.enseignantPage}>
+                  <i class="fa-solid fa-users"></i>
+                    <span>Enseignant</span>
+>>>>>>> 3fb439fe2b5dd7c06533bd1a58f0288742bb82cc
                 </a>
                 </li>
             </aside>
