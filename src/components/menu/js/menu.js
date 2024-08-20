@@ -1,11 +1,10 @@
-
 function loadMenu(path) {
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = path.cssFile;
-    document.head.appendChild(link);
-    var menuContainer = document.createElement('div');
-    var menuContent = `
+  var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = path.cssFile;
+  document.head.appendChild(link);
+  var menuContainer = document.createElement("div");
+  var menuContent = `
            <header id="header"class="menu_theme header fixed-top d-flex align-items-center">
             <!-- Start Logo div -->
             <div class="d-flex align-items-center justify-content-between">
@@ -74,57 +73,65 @@ function loadMenu(path) {
                     <span>Cours</span>
                 </a>
                 </li>
+                 <li class="nav-item">
+                <a class="nav-link " href=${path.etudiantPage}>
+                    <i class="fa-solid fa-book"></i>
+                    <span>Etudiant</span>
+                </a>
+                </li>
             </aside>
             <!--End Side bar-->
             </header>
         `;
-    menuContainer.innerHTML = menuContent;
-    document.body.insertAdjacentElement('afterbegin', menuContainer);
+  menuContainer.innerHTML = menuContent;
+  document.body.insertAdjacentElement("afterbegin", menuContainer);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const select = (el, all = false) => {
-        el = el.trim()
-        if (all) {
-            return [...document.querySelectorAll(el)]
-        } else {
-            return document.querySelector(el)
-        }
+  const select = (el, all = false) => {
+    el = el.trim();
+    if (all) {
+      return [...document.querySelectorAll(el)];
+    } else {
+      return document.querySelector(el);
     }
+  };
 
-    const onscroll = (el, listener) => {
-        el.addEventListener('scroll', listener)
+  const onscroll = (el, listener) => {
+    el.addEventListener("scroll", listener);
+  };
+  const on = (type, el, listener, all = false) => {
+    if (all) {
+      select(el, all).forEach((e) => e.addEventListener(type, listener));
+    } else {
+      select(el, all).addEventListener(type, listener);
     }
-    const on = (type, el, listener, all = false) => {
-        if (all) {
-            select(el, all).forEach(e => e.addEventListener(type, listener))
-        } else {
-            select(el, all).addEventListener(type, listener)
-        }
-    }
-    // console.log("fff")
+  };
+  // console.log("fff")
 
-    if (select('.toggle-sidebar-btn')) {
-        on('click', '.toggle-sidebar-btn', function (e) {
-            select('body').classList.toggle('toggle-sidebar')
-        })
-    }
+  if (select(".toggle-sidebar-btn")) {
+    on("click", ".toggle-sidebar-btn", function (e) {
+      select("body").classList.toggle("toggle-sidebar");
+    });
+  }
 
-    let navbarlinks = select('#navbar .scrollto', true)
-    const navbarlinksActive = () => {
-        let position = window.scrollY + 200
-        navbarlinks.forEach(navbarlink => {
-            if (!navbarlink.hash) return
-            let section = select(navbarlink.hash)
-            if (!section) return
-            if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-                navbarlink.classList.add('active')
-            } else {
-                navbarlink.classList.remove('active')
-            }
-        })
-    }
-    window.addEventListener('load', navbarlinksActive)
-    onscroll(document, navbarlinksActive)
-
-})
+  let navbarlinks = select("#navbar .scrollto", true);
+  const navbarlinksActive = () => {
+    let position = window.scrollY + 200;
+    navbarlinks.forEach((navbarlink) => {
+      if (!navbarlink.hash) return;
+      let section = select(navbarlink.hash);
+      if (!section) return;
+      if (
+        position >= section.offsetTop &&
+        position <= section.offsetTop + section.offsetHeight
+      ) {
+        navbarlink.classList.add("active");
+      } else {
+        navbarlink.classList.remove("active");
+      }
+    });
+  };
+  window.addEventListener("load", navbarlinksActive);
+  onscroll(document, navbarlinksActive);
+});
