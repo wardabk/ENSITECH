@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    loadCoursForm();
+ 
   
     // Chargement du formulaire Cours
     function loadCoursForm() {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
  
-    loadCoursTable();
+    loadCoursForm();
   
     // Chargement du formulaire Cours
     function loadCoursTable() {
@@ -22,5 +22,5 @@ document.addEventListener('DOMContentLoaded', function() {
           // document.getElementById('FormComponent').addEventListener('submit', addStudent);
         });
     }
- 
+    loadCoursTable();
 })
