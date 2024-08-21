@@ -1,0 +1,33 @@
+/* =============== Container ================ */
+.container {
+  background: var(--white);
+  padding: 20px 60px;
+  margin:  320px;
+  border-radius: 20px;
+  margin-top: 100px;
+  box-shadow: 10px 10px 10px 10px  rgba(0, 0, 0, 0.1);
+  position: relative; /* Permet de gérer l'espace par rapport au sidebar */
+  /* margin-right: 70px; */ /* Espace entre le sidebar et le container */
+ 
+ 
+}
+
+.table {
+margin-top: 20px;
+}
+
+.table th, .table td {
+text-align: center;
+vertical-align: middle;
+}
+
+
+
+.btn-secondary {
+background: var(--gray);
+border: none;
+}
+
+#form-container {
+margin-top: 20px;
+}
