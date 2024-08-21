@@ -142,4 +142,16 @@ document.addEventListener("DOMContentLoaded", function () {
   };
   window.addEventListener("load", navbarlinksActive);
   onscroll(document, navbarlinksActive);
+
+
+    // Chargement du Footer
+    function loadFooter() {
+      fetch('src/components/footer/index.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('tableContainer').innerHTML = data;
+          // document.getElementById('FormComponent').addEventListener('submit', addStudent);
+        });
+    }
+    //loadFooter()
 });

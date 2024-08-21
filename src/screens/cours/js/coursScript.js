@@ -11,4 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
  
+    loadCoursTable();
+  
+    // Chargement du formulaire Cours
+    function loadCoursTable() {
+      fetch('tableCours.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('tableContainer').innerHTML = data;
+          // document.getElementById('FormComponent').addEventListener('submit', addStudent);
+        });
+    }
+ 
 })

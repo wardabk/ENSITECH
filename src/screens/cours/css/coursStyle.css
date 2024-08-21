@@ -1,0 +1,15 @@
+h2 {
+    color: #343a40;
+  }
+  
+  #studentTable th {
+    cursor: pointer;
+  }
+  
+  #studentTable tbody tr {
+    transition: background-color 0.3s;
+  }
+  
+  #studentTable tbody tr:hover {
+    background-color: #f1f1f1;
+  }
