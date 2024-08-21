@@ -21,7 +21,7 @@ function showTable() {
 function ajouterEtudiant() {
     const nom = document.getElementById('nom').value;
     const prenom = document.getElementById('prenom').value;
-    const cin = document.getElementById('cin').value;
+   
     const telephone = document.getElementById('telephone').value;
     const email = document.getElementById('email').value;
     const adresse = document.getElementById('adresse').value;
@@ -35,17 +35,12 @@ function ajouterEtudiant() {
     errorMessage.classList.add('d-none');
 
     // Validation des champs du formulaire
-    if (!nom || !prenom || cin.length != 8 || telephone.length != 8 || !email || !adresse || !dateNaissance) {
+    if (!nom || !prenom || telephone.length != 8 || !email || !adresse || !dateNaissance) {
         errorMessage.classList.remove('d-none');
         errorMessage.textContent = 'Veuillez remplir tous les champs correctement.';
         return;
     }
-      // Vérifier si le CIN existe déjà
-      if (etudiants.some(e => e.cin === cin)) {
-        errorMessage.classList.remove('d-none');
-        errorMessage.textContent = 'Ce numéro de CIN est déjà utilisé ! Veuillez en choisir un autre.';
-        return;
-    }
+      
 
     // Vérifier si l'adresse e-mail existe déjà
     if (etudiants.some(e => e.email === email)) {
@@ -59,7 +54,6 @@ function ajouterEtudiant() {
         id: idCounter++,
         nom,
         prenom,
-        cin,
         telephone,
         email,
         adresse,
@@ -105,7 +99,6 @@ function showStudentDetails(id) {
       template.querySelector('.student-id').textContent = etudiant.id;
       template.querySelector('.student-nom').textContent = etudiant.nom;
       template.querySelector('.student-prenom').textContent = etudiant.prenom;
-      template.querySelector('.student-cin').textContent = etudiant.cin;
       template.querySelector('.student-telephone').textContent = etudiant.telephone;
       template.querySelector('.student-email').textContent = etudiant.email;
       template.querySelector('.student-adresse').textContent = etudiant.adresse;
