@@ -1,3 +1,4 @@
+
 let etudiants = [];
 let idCounter = 1;
 
@@ -74,26 +75,55 @@ function ajouterEtudiant() {
     row.insertCell(0).textContent = etudiant.id;
     row.insertCell(1).textContent = etudiant.nom;
     row.insertCell(2).textContent = etudiant.prenom;
-    row.insertCell(3).textContent = etudiant.cin;
-    row.insertCell(4).textContent = etudiant.telephone;
-    row.insertCell(5).textContent = etudiant.email;
-    row.insertCell(6).textContent = etudiant.adresse;
-    row.insertCell(7).textContent = etudiant.dateNaissance;
+    row.insertCell(3).textContent = etudiant.telephone;
 
+    // Créer une cellule pour le bouton "Voir"
+    const actionCell = row.insertCell(4);
+    const viewButton = document.createElement('button');
+    viewButton.className = 'btn btn-primary';
+    viewButton.textContent = 'Voir';
+    viewButton.onclick = () => showStudentDetails(etudiant.id);
+    actionCell.appendChild(viewButton);
 
     // Cacher le formulaire et afficher le tableau
     showTable();
-    successMessage.classList.remove('d-none'); // Show success message
+    successMessage.classList.remove('d-none');
     successMessage.textContent = 'L\'étudiant a été créé avec succès.';
 
     // Réinitialiser les champs du formulaire
     document.getElementById('student-form').reset();
 }
+function showStudentDetails(id) {
+  const etudiant = etudiants.find(e => e.id === id);
+  if (etudiant) {
+      // Sélectionner la modale et le modèle
+      const modal = document.getElementById('studentModal');
+      const modalBody = modal.querySelector('.modal-body');
+      const template = document.getElementById('studentDetailsTemplate').content.cloneNode(true);
 
+      // Mettre à jour le modèle avec les données de l'étudiant
+      template.querySelector('.student-id').textContent = etudiant.id;
+      template.querySelector('.student-nom').textContent = etudiant.nom;
+      template.querySelector('.student-prenom').textContent = etudiant.prenom;
+      template.querySelector('.student-cin').textContent = etudiant.cin;
+      template.querySelector('.student-telephone').textContent = etudiant.telephone;
+      template.querySelector('.student-email').textContent = etudiant.email;
+      template.querySelector('.student-adresse').textContent = etudiant.adresse;
+      template.querySelector('.student-date-naissance').textContent = etudiant.dateNaissance;
 
+      // Insérer le modèle mis à jour dans la modale
+      modalBody.innerHTML = '';
+      modalBody.appendChild(template);
 
+      // Afficher la modale
+      modal.style.display = 'block';
+  }
+}
 
-
-
-
-
+// Fonction pour masquer la modale des détails de l'étudiant
+function hideStudentDetails() {
+  const modal = document.getElementById('studentModal');
+  if (modal) {
+      modal.style.display = 'none';
+  }
+}
