@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="./css/coursStyle.css" />
   </head>
   <body class="">
-    <main class="container mt-5 mains" id="mains">
-      <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
+    <main class="container mt-5 " id="mains">
+      <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5 screenContainer">
         <div class="text-center">
           <h1 class="display-5 mb-4">Gestion des Cours</h1>
         </div>
@@ -42,7 +42,7 @@
               <button
                 class="btn btn-primary newUser"
                 data-bs-toggle="modal"
-                data-bs-target="#userForm"
+                data-bs-target="#coursForm"
               >
                 Nouveau Cours
                 <!-- <i class="bi bi-people"></i> -->
@@ -64,13 +64,24 @@
                   </tr>
                 </thead>
 
-                <tbody id="data"></tbody>
+                <tbody id="coursList">
+                  <tr>
+                    <td>AAA</td>
+                    <td>VVV</td>
+                    <td>C</td>
+                    <td>
+                      <a href="" class="btn btn-success btn-sm detail">Détails</a>
+                      <a href="" class="btn btn-warning btn-sm edit">Modifier</a>
+                      <a href="#" class="btn btn-danger btn-sm delete">Supprimer</a>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
         </section>
         <!--Formulaire Creation-->
-        <div class="modal fade" id="userForm">
+        <div class="modal fade" id="coursForm">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
               <div class="modal-header">
