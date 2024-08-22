@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
  
   
     // Chargement du formulaire Cours
@@ -23,4 +23,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     loadCoursTable();
-})
+}) */
