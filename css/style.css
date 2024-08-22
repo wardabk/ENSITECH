@@ -1,13 +1,34 @@
-body {
-    /* font-family: "Open Sans", sans-serif; */
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
     background: #f6f9ff;
-    /* color: #444444; */
   }
-  
+
+  .main-container {
+    max-width: 100%;
+    margin: 0 auto; /* Centers the content */
+    padding: 10px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Ensures padding doesn't affect the width */
+  }
 main {
     margin-top: 60px;
     padding: 20px 30px;
     transition: all 0.3s;
     /* background-color: blue; */
   }
+  @media (max-width: 1199px) {
+    #main {
+      padding: 20px;
+    }
+  }
   
+  /*------- Footer -------*/
+  @media (min-width: 1200px) {
+
+    #main,
+    #footer {
+      margin-left: 300px;
+    }
+  }
