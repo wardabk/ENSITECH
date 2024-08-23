@@ -36,13 +36,14 @@
         <!-- <div id="tableContainer">
          
         </div> -->
+        <!--Tableau-->
         <section class="p-3">
           <div class="row">
             <div class="col-12">
               <button
                 class="btn btn-primary newUser"
                 data-bs-toggle="modal"
-                data-bs-target="#coursForm"
+                data-bs-target="#coursFormContainer"
               >
                 Nouveau Cours
                 <!-- <i class="bi bi-people"></i> -->
@@ -59,7 +60,7 @@
                   <tr>
                     <th>Thème</th>
                     <th>Nombre d'heure</th>
-                    <th>Enseignant</th>
+                    <!-- <th>Enseignant</th> -->
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -68,7 +69,7 @@
                   <tr>
                     <td>AAA</td>
                     <td>VVV</td>
-                    <td>C</td>
+                    <!-- <td>C</td> -->
                     <td>
                       <a href="" class="btn btn-success btn-sm detail">Détails</a>
                       <a href="" class="btn btn-warning btn-sm edit">Modifier</a>
@@ -81,7 +82,7 @@
           </div>
         </section>
         <!--Formulaire Creation-->
-        <div class="modal fade" id="coursForm">
+        <div class="modal fade" id="coursFormContainer">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -94,8 +95,8 @@
                 ></button>
               </div>
 
-              <div class="modal-body">
-                <form action="#" id="myForm">
+              <div class="modal-body ">
+                <form action="#" id="coursForm">
                   <div
                     class="row w-100 px-2 justify-content-center align-content-center"
                   >
@@ -161,7 +162,7 @@
                 </button>
                 <button
                   type="submit"
-                  form="myForm"
+                  form="coursForm"
                   class="btn btn-primary submit"
                 >
                   Créer un Cours
