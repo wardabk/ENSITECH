@@ -20,13 +20,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <link rel="stylesheet" href="../../../css/style.css" />
+    <link rel="stylesheet" href="../../../css/table.css" />
     <link rel="stylesheet" href="./css/coursStyle.css" />
   </head>
   <body class="">
     <main class="container mt-5 " id="mains">
       <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5 screenContainer">
         <div class="text-center">
-          <h1 class="display-5 mb-4">Gestion des Cours</h1>
+          <h1 class="font-weight-bold text-primary">Liste des Cours</h1>
         </div>
         <!-- Formulaire chargé dynamiquement-->
         <!-- <div id="formContainer">
@@ -39,7 +40,7 @@
         <!--Tableau-->
         <section class="p-3">
           <div class="row">
-            <div class="col-12">
+            <div class="col-12s p-2 d-flex  justify-content-end">
               <button
                 class="btn btn-primary newUser"
                 data-bs-toggle="modal"
@@ -67,13 +68,14 @@
 
                 <tbody id="coursList">
                   <tr>
-                    <td>AAA</td>
-                    <td>VVV</td>
+                    <td>Developpement Fullstack</td>
+                    <td>5</td>
                     <!-- <td>C</td> -->
                     <td>
-                      <a href="" class="btn btn-success btn-sm detail">Détails</a>
-                      <a href="" class="btn btn-warning btn-sm edit">Modifier</a>
-                      <a href="#" class="btn btn-danger btn-sm delete">Supprimer</a>
+                      <i class="fa-solid fa-eye detail"></i>
+                      <!-- <a href="#" class="btn btn-success btn-sm detail"><i class="fa-solid fa-eye"></i></a> -->
+                      <!-- <a href="#" class="btn btn-warning btn-sm edit">Modifier</a>
+                      <a href="#" class="btn btn-danger btn-sm delete">Supprimer</a> -->
                     </td>
                   </tr>
                 </tbody>
@@ -86,7 +88,7 @@
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Nouveau Cours</h4>
+                <h4 class="modal-title" id="modal-title"></h4>
                 <button
                   type="button"
                   class="btn-close"
@@ -153,19 +155,36 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button
+                <!-- <button
                   type="button"
                   class="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >
                   Fermer
-                </button>
+                </button> -->
                 <button
                   type="submit"
                   form="coursForm"
-                  class="btn btn-primary submit"
+                  class="btn btn-success submit"
+                  id="saveButton"
+                  style="display: none;"
                 >
-                  Créer un Cours
+                  Ajouter
+                </button>
+                <button
+      
+                  class="btn btn-warning submit"
+                  id="editButton"
+                  style="display: none;"
+                >
+                  Modifier
+                </button>
+                <button
+                  class="btn btn-danger submit"
+                  id="deleteButton"
+                  style="display: none;"
+                >
+                  Supprimer
                 </button>
               </div>
             </div>
@@ -174,7 +193,7 @@
 
         <!--Formulaire Détail-->
         <!--Read Data Modal-->
-        <div class="modal fade" id="readData">
+        <!-- <div class="modal fade" id="readData">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -233,7 +252,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </main>
     <script

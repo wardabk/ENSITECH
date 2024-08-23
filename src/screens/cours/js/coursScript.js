@@ -28,6 +28,11 @@
 var selectedRow = null;
 const LIST = "liste";
 const FORM = "Form";
+const modalElement = document.getElementById('coursFormContainer');
+const saveButton = document.getElementById('saveButton');
+const editButton = document.getElementById('editButton');
+const deleteButton = document.getElementById('deleteButton');
+const modalTitle = document.getElementById('modal-title');
 // Fonction alert
 
 function showAlert(message, className, place) {
@@ -51,17 +56,17 @@ function showAlert(message, className, place) {
 function clearFields() {
   document.querySelector("#theme").value = "";
   document.querySelector("#nbreHeure").value = "";
+  // console.log("eehh");
+  
 }
 
 /// Créer un cours
 document.querySelector("#coursForm").addEventListener("submit", (e) => {
-  console.log("ddd")
   e.preventDefault();
 
   //Données du formulaire
   const theme = document.querySelector('#theme').value;
   const nbreHeure = document.querySelector('#nbreHeure').value;
-  console.log("ddd", theme)
   //validation des données
   if (theme === "" || nbreHeure === "") {
     showAlert("Veuillez remplir tous les champs", "danger", FORM)
@@ -73,28 +78,106 @@ document.querySelector("#coursForm").addEventListener("submit", (e) => {
         <td> ${theme}</td>
         <td> ${nbreHeure}</td>
          <td>
-            <a href="" class="btn btn-success btn-sm detail">Détails</a>
-            <a href="" class="btn btn-warning btn-sm edit">Modifier</a>
-            <a href="#" class="btn btn-danger btn-sm delete">Supprimer</a>
+           <i class="fa-solid fa-eye detail"></i>
           </td>
         `;
-        list.appendChild(row);
-        selectedRow=null;
-        showAlert("Cours enregistré avec succès", "success",LIST)
-    }
-    }
+      list.appendChild(row);
+      selectedRow = null;
+      handleModalForm("close")
+      showAlert("Cours enregistré avec succès", "success", LIST)
+    }/* else {
+      selectedRow.children[0].textContent = theme;
+      selectedRow.children[1].textContent = nbreHeure;
+      selectedRow = null;
+      showAlert("Cours modifié avec Succès", "info", FORM)
+
+    }*/
+    clearFields();
+  }
 
 
 });
-
-//supprimer un cours
+// Modifier un cours
+/* document.querySelector("#coursList").addEventListener("click", (e) => {
+  const target = e.target;
+  console.log("ddd", target);
+  
+ 
+}) */
+//détail d' un cours
 document.querySelector("#coursList").addEventListener("click", (e) => {
 
   const target = e.target;
-  // console.log("ee",e.target);
-  if (target.classList.contains("delete")) {
+  
+ /* if (target.classList.contains("delete")) {
     target.parentElement.parentElement.remove();
     showAlert("Cours Supprimé", "danger", LIST);
-  }
+  } else  */if (target.classList.contains("detail")) {
+    selectedRow = target.parentElement.parentElement;
+    handleModalForm("open")
+    if(selectedRow){
+    document.querySelector("#theme").value = selectedRow.children[0].textContent
+    document.querySelector("#nbreHeure").value = parseInt(selectedRow.children[1].textContent)
+    }
+    console.log("ee",selectedRow);
+  } 
   // alert()
 })
+
+// Fermer le formulaire
+function handleModalForm(action) {
+ 
+  if (modalElement) {
+    var modalInstance = bootstrap.Modal.getInstance(modalElement)|| new bootstrap.Modal(modalElement);
+    if(action==="open"){
+      modalInstance.show();
+      // console.log("open", modalInstance);
+      
+    } else if(action==="close"){
+      // console.log("close");
+     
+      modalInstance.hide();
+    }
+   
+  }
+}
+
+// Listen when modal is closed 
+modalElement.addEventListener('hidden.bs.modal', function (event) {
+  console.log('Modal is closed!');
+  clearFields();
+  modalTitle.innerHTML=""
+  selectedRow=null
+  saveButton.style.display = 'none';
+  editButton.style.display = 'none';
+  deleteButton.style.display = 'none';
+});
+
+ // Listen when modal is open
+ modalElement.addEventListener('shown.bs.modal', function (event) {
+  console.log('Modal is opened!');
+  if (selectedRow === null) {
+  saveButton.style.display = 'block';
+   modalTitle.innerHTML="Nouveau Cours"
+  } else {
+      modalTitle.innerHTML="Informations du Cours"
+    editButton.style.display = 'block';
+    deleteButton.style.display = 'block';
+  }
+});
+
+// supprimer 
+deleteButton.addEventListener("click", (e) => {
+  //target.parentElement.parentElement.remove();
+   // showAlert("Cours Supprimé", "danger", LIST);
+   console.log("suppression");
+   
+})
+// modification 
+editButton.addEventListener("click", (e) => {
+  //target.parentElement.parentElement.remove();
+   // showAlert("Cours Supprimé", "danger", LIST);
+   console.log("modification");
+   
+})
+
