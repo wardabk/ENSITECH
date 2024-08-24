@@ -1,183 +1,182 @@
-/* document.addEventListener('DOMContentLoaded', function() {
- 
-  
-    // Chargement du formulaire Cours
-    function loadCoursForm() {
-      fetch('formCours.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('formContainer').innerHTML = data;
-          // document.getElementById('FormComponent').addEventListener('submit', addStudent);
-        });
-    }
- 
-    loadCoursForm();
-  
-    // Chargement du formulaire Cours
-    function loadCoursTable() {
-      fetch('tableCours.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('tableContainer').innerHTML = data;
-          // document.getElementById('FormComponent').addEventListener('submit', addStudent);
-        });
-    }
-    loadCoursTable();
-}) */
+document.addEventListener('DOMContentLoaded', function () {
+  const AllCours = [
+    { identifiant: 1, theme: 'Réseau', nbreHeure: 8 },
+    { identifiant: 2, theme: 'Conception', nbreHeure: 16 },
+    { identifiant: 3, theme: 'Algorithmique', nbreHeure: 4 },
 
-var selectedRow = null;
-const LIST = "liste";
-const FORM = "Form";
-const modalElement = document.getElementById('coursFormContainer');
-const saveButton = document.getElementById('saveButton');
-const editButton = document.getElementById('editButton');
-const deleteButton = document.getElementById('deleteButton');
-const modalTitle = document.getElementById('modal-title');
-// Fonction alert
-
-function showAlert(message, className, place) {
-  const div = document.createElement("div");
-  div.className = `alert alert-${className}`;
-  div.appendChild(document.createTextNode(message));
-
-  let container = document.querySelector(".container");
-  let screenContainer = document.querySelector(".screenContainer");
-  if (place === FORM) {
-    container = document.querySelector(".modal-body");
-    screenContainer = document.querySelector("#coursForm");
-  }
-
-  container.insertBefore(div, screenContainer);
-  setTimeout(() => document.querySelector(".alert").remove(), 3000)
-
-}
-//Vider la liste des champs
-
-function clearFields() {
-  document.querySelector("#theme").value = "";
-  document.querySelector("#nbreHeure").value = "";
-  // console.log("eehh");
-  
-}
-
-/// Créer un cours
-document.querySelector("#coursForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  //Données du formulaire
-  const theme = document.querySelector('#theme').value;
-  const nbreHeure = document.querySelector('#nbreHeure').value;
-  //validation des données
-  if (theme === "" || nbreHeure === "") {
-    showAlert("Veuillez remplir tous les champs", "danger", FORM)
-  } else {
-    if (selectedRow === null) {
-      const list = document.querySelector("#coursList");
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td> ${theme}</td>
-        <td> ${nbreHeure}</td>
-         <td>
-           <i class="fa-solid fa-eye detail"></i>
-          </td>
-        `;
-      list.appendChild(row);
-      selectedRow = null;
-      handleModalForm("close")
-      showAlert("Cours enregistré avec succès", "success", LIST)
-    }/* else {
-      selectedRow.children[0].textContent = theme;
-      selectedRow.children[1].textContent = nbreHeure;
-      selectedRow = null;
-      showAlert("Cours modifié avec Succès", "info", FORM)
-
-    }*/
-    clearFields();
-  }
-
-
-});
-// Modifier un cours
-/* document.querySelector("#coursList").addEventListener("click", (e) => {
-  const target = e.target;
-  console.log("ddd", target);
-  
- 
-}) */
-//détail d' un cours
-document.querySelector("#coursList").addEventListener("click", (e) => {
-
-  const target = e.target;
-  
- /* if (target.classList.contains("delete")) {
-    target.parentElement.parentElement.remove();
-    showAlert("Cours Supprimé", "danger", LIST);
-  } else  */if (target.classList.contains("detail")) {
-    selectedRow = target.parentElement.parentElement;
+  ];
+  const modalElement = document.getElementById('coursFormContainer');
+  const saveButton = document.getElementById('saveButton');
+  const editButton = document.getElementById('editButton');
+  const deleteButton = document.getElementById('deleteButton');
+  const modalTitle = document.getElementById('modal-title');
+  const theme = document.getElementById('theme');
+  const nbreHeure = document.getElementById('nbreHeure');
+  const LIST = "liste";
+  const FORM = "Form";
+  // Initialisation du cours selectionné
+  let currentCours = null;
+  // Fonction pour afficher les information d'un cours
+  function afficherCours(cours) {
+    console.log("ggg", cours)
+    theme.value = cours.theme;
+    nbreHeure.value = parseInt(cours.nbreHeure);
+    currentCours = cours;
     handleModalForm("open")
-    if(selectedRow){
-    document.querySelector("#theme").value = selectedRow.children[0].textContent
-    document.querySelector("#nbreHeure").value = parseInt(selectedRow.children[1].textContent)
-    }
-    console.log("ee",selectedRow);
-  } 
-  // alert()
-})
+  }
+  // Fonction pour afficher les cours dans le tableau
+  function listerCours() {
+    const tableBody = document.querySelector('#coursTable tbody');
+    tableBody.innerHTML = ''; // Effacer les lignes existantes
 
-// Fermer le formulaire
-function handleModalForm(action) {
- 
-  if (modalElement) {
-    var modalInstance = bootstrap.Modal.getInstance(modalElement)|| new bootstrap.Modal(modalElement);
-    if(action==="open"){
-      modalInstance.show();
-      // console.log("open", modalInstance);
+    AllCours.forEach(cours => {
+      const row = document.createElement('tr');
+      row.insertCell(0).textContent = cours.identifiant;
+      row.insertCell(1).textContent = cours.theme;
+      row.insertCell(2).textContent = cours.nbreHeure;
+      const actionCell = row.insertCell(3);
+      const viewButton = document.createElement('button');
+      viewButton.className = 'btn btn-primary';
+      viewButton.textContent = 'Voir';
+      viewButton.onclick = () => afficherCours(cours);
+      actionCell.appendChild(viewButton);
+      tableBody.appendChild(row);
+    });
+  }
+
+  // gérer l'affichage du formulaire
+  function handleModalForm(action) {
+
+    if (modalElement) {
+      var modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+      if (action === "open") {
+        modalInstance.show();
+
+      } else if (action === "close") {
+        modalInstance.hide();
+      }
+
+    }
+  }
+  // Listen when modal is closed 
+  modalElement.addEventListener('hidden.bs.modal', function (event) {
+    console.log('Modal is closed!');
+    clearFields();
+    modalTitle.innerHTML = ""
+    currentCours = null
+    saveButton.style.display = 'none';
+    editButton.style.display = 'none';
+    deleteButton.style.display = 'none';
+  });
+
+  // Listen when modal is open
+  modalElement.addEventListener('shown.bs.modal', function (event) {
+    console.log('Modal is opened!');
+    if (currentCours === null) {
+      saveButton.style.display = 'block';
+      modalTitle.innerHTML = "Nouveau Cours"
+    } else {
+      modalTitle.innerHTML = "Informations du Cours"
+      editButton.style.display = 'block';
+      deleteButton.style.display = 'block';
+    }
+  });
+
+  function showAlert(message, className, place) {
+    const div = document.createElement("div");
+    div.className = `alert alert-${className}`;
+    div.appendChild(document.createTextNode(message));
+
+    let container = document.querySelector(".screenContainer");
+    let titleBox = document.querySelector(".titleBox");
+    if (place === FORM) {
+      container = document.querySelector(".modal-body");
+      titleBox = document.querySelector("#coursForm");
+    }
+
+    container.insertBefore(div, titleBox);
+    setTimeout(() => document.querySelector(".alert").remove(), 3000)
+
+  }
+  // vider les champs
+  function clearFields() {
+    document.querySelector("#theme").value = "";
+    document.querySelector("#nbreHeure").value = "";
+    // console.log("eehh");
+
+  }
+  // modification 
+  editButton.addEventListener("click", (e) => {
+    const themeInput= theme.value,
+    nbreHeureInput= nbreHeure.value;
+    console.log(themeInput,nbreHeureInput);
+    
+    if (themeInput === "" || nbreHeureInput === "") {
+      showAlert("Veuillez remplir tous les champs", "danger", FORM)
+    } else {
+      const iscoursExist = AllCours.some((i) => i.theme === themeInput && i.identifiant !== currentCours.identifiant);
+      if (iscoursExist) {
+        console.log("ajout", iscoursExist);
+        showAlert("Ce cours existe déja!", "danger", FORM)
+      } else {
+        const index = AllCours.findIndex(cours => cours.identifiant === currentCours.identifiant);
+        if (index !== -1) {
+          AllCours[index] = { identifiant:currentCours.identifiant, theme: themeInput, nbreHeure: nbreHeureInput }
+          listerCours()
+          handleModalForm("close")
+          showAlert("Cours modifié avec succès", "success", LIST)
+        }else {
+          showAlert("Ce cours n'existe pas!", "danger", FORM)
+        }
       
-    } else if(action==="close"){
-      // console.log("close");
-     
-      modalInstance.hide();
+      }
     }
-   
-  }
-}
 
-// Listen when modal is closed 
-modalElement.addEventListener('hidden.bs.modal', function (event) {
-  console.log('Modal is closed!');
-  clearFields();
-  modalTitle.innerHTML=""
-  selectedRow=null
-  saveButton.style.display = 'none';
-  editButton.style.display = 'none';
-  deleteButton.style.display = 'none';
-});
+  })
+  // supprimer 
+  deleteButton.addEventListener("click", (e) => {
+    if (currentCours) {
+      const index = AllCours.findIndex(cours => cours.identifiant === currentCours.identifiant);
+      if (index !== -1) {
+        AllCours.splice(index, 1);
+        listerCours()
+        handleModalForm("close")
+        showAlert("Cours supprimé avec succès", "success", LIST)
+      }else {
+        showAlert("Ce cours n'existe pas!", "danger", FORM)
+      }
+    }
 
- // Listen when modal is open
- modalElement.addEventListener('shown.bs.modal', function (event) {
-  console.log('Modal is opened!');
-  if (selectedRow === null) {
-  saveButton.style.display = 'block';
-   modalTitle.innerHTML="Nouveau Cours"
-  } else {
-      modalTitle.innerHTML="Informations du Cours"
-    editButton.style.display = 'block';
-    deleteButton.style.display = 'block';
-  }
-});
-
-// supprimer 
-deleteButton.addEventListener("click", (e) => {
-  //target.parentElement.parentElement.remove();
-   // showAlert("Cours Supprimé", "danger", LIST);
-   console.log("suppression");
-   
+  })
+  // ajout 
+  saveButton.addEventListener("click", (e) => {
+    //target.parentElement.parentElement.remove();
+    // showAlert("Cours Supprimé", "danger", LIST);
+    const themeInput= theme.value,
+    nbreHeureInput= nbreHeure.value;
+    console.log(themeInput,nbreHeureInput);
+    
+    if (themeInput === "" || nbreHeureInput === "") {
+      showAlert("Veuillez remplir tous les champs", "danger", FORM)
+    } else {
+      const iscoursExist = AllCours.some((i) => i.theme === themeInput);
+      if (iscoursExist) {
+        console.log("ajout", iscoursExist);
+        showAlert("Ce cours existe déja!", "danger", FORM)
+      } else {
+        const lastId = Math.max(...AllCours.map(i => i.identifiant));
+        console.log("ajout", lastId);
+        const newCours = {
+          identifiant: lastId + 1,
+          theme: themeInput,
+          nbreHeure: nbreHeureInput,
+        }
+        AllCours.push(newCours);
+        listerCours()
+        handleModalForm("close")
+        showAlert("Cours enregistré avec succès", "success", LIST)
+      }
+    }
+  })
+  listerCours()
 })
-// modification 
-editButton.addEventListener("click", (e) => {
-  //target.parentElement.parentElement.remove();
-   // showAlert("Cours Supprimé", "danger", LIST);
-   console.log("modification");
-   
-})
-
