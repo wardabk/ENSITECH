@@ -1,18 +1,20 @@
 /* Style global pour les petits écrans */
 .container {
-  padding: 20px 20px;
-  margin: 320px;
-  border-radius: 20px;
-  margin-top: 50px;
-  box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.1);
-}
+ /*  padding: 20px 20px;
+  margin: 320px; 
+  border-radius: 20px; 
+   margin-top: 50px;  */
+/*   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.1); */
+} 
 .table th{
   color: darkblue;
+  background-color: #e9ecef;
+  font-weight: bold;
   
 }
 .table th, .table td {
   text-align: center;
-  font-size: 14px;
+  
 }
 
 .btn-primary {
@@ -42,6 +44,7 @@
 
   .table th, .table td {
     font-size: 12px;
+ 
   }
 
   .btn-primary {
@@ -74,6 +77,7 @@
   }
 
   .table th, .table td {
-    font-size: 10px;
+    font-size: 14px;
+    display: block;
   }
 }
