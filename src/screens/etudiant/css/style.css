@@ -9,166 +9,166 @@
 /* Style global pour les petits écrans */
 /* Style pour le tableau */
 .table th, .table td {
-  text-align: center;
-}
-
-/* Styles pour la section Gestion */
-.gestion {
-  width: fit-content;
-  font-weight: bold;
-  font-family: monospace;
-  font-size: 30px;
-  clip-path: inset(0 100% 0 0);
-  animation: l5 5s steps(25) infinite;
-}
-
-.gestion:before {
-  content: "";
-}
-
-
-.button-group {
-  margin: 5px;
-}
-@keyframes l5 {
-  to {
-    clip-path: inset(0 -1ch 0 0);
+    text-align: center;
   }
-}
-
-/* Media Queries pour les écrans moyens */
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-    margin: 10px;
-    box-shadow: none;
+  
+  /* Styles pour la section Gestion */
+  .gestion {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    clip-path: inset(0 100% 0 0);
+    animation: l5 5s steps(25) infinite;
   }
-
-  .row {
-    margin-bottom: 10px;
+  
+  .gestion:before {
+    content: "";
   }
-
-  .form-label {
-    font-size: 14px;
-  }
-
-  .form-control {
-    font-size: 14px;
-  }
-
-  .table th, .table td {
-    font-size: 12px;
-  }
-
-  .btn-primary {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-}
-
-/* Media Queries pour les petits écrans */
-@media (max-width: 576px) {
-  .table th, .table td {
-    font-size: 10px;
-    padding: 4px;
-  }
-
-  .btn-primary {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-
-  .form-label {
-    font-size: 12px;
-  }
-
-  .form-control {
-    font-size: 12px;
-  }
-}
-
-
-
-
-
-
-/* HTML: <div class="loader"></div> */
-/* .gestion {
-  width: fit-content;
-  font-weight: bold;
-  font-family: monospace;
-  font-size: 30px;
-  clip-path: inset(0 100% 0 0);
-  animation: l5 2s steps(20) infinite;
- 
-}
-.gestion:before {
-  content:""
-}
-@keyframes l5 {to{clip-path: inset(0 -1ch 0 0)}} */
-
-/* .btn-primary {
-  font-size: 14px;
-  padding: 10px 20px;
-}
- */
-/* Media Queries pour les écrans moyens */
-/* @media (max-width: 768px) {
-  .container {
-    padding: 10px;
-    margin: 10px;
-    box-shadow: none;
-  }
-
-  .form-group, .form-row {
-    margin-bottom: 10px;
-  }
-
-  .form-group label {
-    font-size: 14px;
-  }
-
-  .form-control {
-    font-size: 14px;
-  }
-
-  .table th, .table td {
-    font-size: 12px;
- 
-  }
-
-  .btn-primary {
-    padding: 8px 16px;
-    font-size: 12px;
-  }
-}
-
-/* Media Queries pour les écrans très petits */
-/* @media (max-width: 480px) {
-  .container {
-    padding: 5px;
+  
+  
+  .button-group {
     margin: 5px;
-    border-radius: 10px;
-    margin-top: 20px;
   }
-
-  .form-row {
-    flex-direction: column;
+  @keyframes l5 {
+    to {
+      clip-path: inset(0 -1ch 0 0);
+    }
   }
-
-  .form-group {
-    width: 100%;
-    margin-bottom: 5px;
+  
+  /* Media Queries pour les écrans moyens */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+      margin: 10px;
+      box-shadow: none;
+    }
+  
+    .row {
+      margin-bottom: 10px;
+    }
+  
+    .form-label {
+      font-size: 14px;
+    }
+  
+    .form-control {
+      font-size: 14px;
+    }
+  
+    .table th, .table td {
+      font-size: 12px;
+    }
+  
+    .btn-primary {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
   }
-
-  .btn-primary {
-    width: 100%;
-    margin-top: 10px;
+  
+  /* Media Queries pour les petits écrans */
+  @media (max-width: 576px) {
+    .table th, .table td {
+      font-size: 10px;
+      padding: 4px;
+    }
+  
+    .btn-primary {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  
+    .form-label {
+      font-size: 12px;
+    }
+  
+    .form-control {
+      font-size: 12px;
+    }
   }
-
-  .table th, .table td {
+  
+  
+  
+  
+  
+  
+  /* HTML: <div class="loader"></div> */
+  /* .gestion {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 30px;
+    clip-path: inset(0 100% 0 0);
+    animation: l5 2s steps(20) infinite;
+   
+  }
+  .gestion:before {
+    content:""
+  }
+  @keyframes l5 {to{clip-path: inset(0 -1ch 0 0)}} */
+  
+  /* .btn-primary {
     font-size: 14px;
-    display: block;
+    padding: 10px 20px;
   }
-}
    */
+  /* Media Queries pour les écrans moyens */
+  /* @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+      margin: 10px;
+      box-shadow: none;
+    }
+  
+    .form-group, .form-row {
+      margin-bottom: 10px;
+    }
+  
+    .form-group label {
+      font-size: 14px;
+    }
+  
+    .form-control {
+      font-size: 14px;
+    }
+  
+    .table th, .table td {
+      font-size: 12px;
+   
+    }
+  
+    .btn-primary {
+      padding: 8px 16px;
+      font-size: 12px;
+    }
+  }
+  
+  /* Media Queries pour les écrans très petits */
+  /* @media (max-width: 480px) {
+    .container {
+      padding: 5px;
+      margin: 5px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  
+    .form-row {
+      flex-direction: column;
+    }
+  
+    .form-group {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  
+    .btn-primary {
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .table th, .table td {
+      font-size: 14px;
+      display: block;
+    }
+  }
+     */

@@ -1,53 +1,182 @@
-/* document.addEventListener('DOMContentLoaded', function() {
- 
-  
-    // Chargement du formulaire Cours
-    function loadCoursForm() {
-      fetch('formCours.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('formContainer').innerHTML = data;
-          // document.getElementById('FormComponent').addEventListener('submit', addStudent);
-        });
-    }
- 
-    loadCoursForm();
-  
-    // Chargement du formulaire Cours
-    function loadCoursTable() {
-      fetch('tableCours.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('tableContainer').innerHTML = data;
-          // document.getElementById('FormComponent').addEventListener('submit', addStudent);
-        });
-    }
-    loadCoursTable();
-}) */
+document.addEventListener('DOMContentLoaded', function () {
+  const AllCours = [
+    { identifiant: 1, theme: 'Réseau', nbreHeure: 8 },
+    { identifiant: 2, theme: 'Conception', nbreHeure: 16 },
+    { identifiant: 3, theme: 'Algorithmique', nbreHeure: 4 },
 
-  var selectedRow= null;
-  // Fonction alert
+  ];
+  const modalElement = document.getElementById('coursFormContainer');
+  const saveButton = document.getElementById('saveButton');
+  const editButton = document.getElementById('editButton');
+  const deleteButton = document.getElementById('deleteButton');
+  const modalTitle = document.getElementById('modal-title');
+  const theme = document.getElementById('theme');
+  const nbreHeure = document.getElementById('nbreHeure');
+  const LIST = "liste";
+  const FORM = "Form";
+  // Initialisation du cours selectionné
+  let currentCours = null;
+  // Fonction pour afficher les information d'un cours
+  function afficherCours(cours) {
+    console.log("ggg", cours)
+    theme.value = cours.theme;
+    nbreHeure.value = parseInt(cours.nbreHeure);
+    currentCours = cours;
+    handleModalForm("open")
+  }
+  // Fonction pour afficher les cours dans le tableau
+  function listerCours() {
+    const tableBody = document.querySelector('#coursTable tbody');
+    tableBody.innerHTML = ''; // Effacer les lignes existantes
 
-  function showAlert(message, className){
-    const div= document.createElement("div");
-    div.className=`alert alert-${className}`;
-    div.appendChild(document.createTextNode(message));
-    const container= document.querySelector(".container");
-    const screenContainer= document.querySelector(".screenContainer");
-    container.insertBefore(div, screenContainer);
-    setTimeout(()=> document.querySelector(".alert").remove(),3000)
-
+    AllCours.forEach(cours => {
+      const row = document.createElement('tr');
+      row.insertCell(0).textContent = cours.identifiant;
+      row.insertCell(1).textContent = cours.theme;
+      row.insertCell(2).textContent = cours.nbreHeure;
+      const actionCell = row.insertCell(3);
+      const viewButton = document.createElement('button');
+      viewButton.className = 'btn btn-primary';
+      viewButton.textContent = 'Voir';
+      viewButton.onclick = () => afficherCours(cours);
+      actionCell.appendChild(viewButton);
+      tableBody.appendChild(row);
+    });
   }
 
-  //supprimer un cours
+  // gérer l'affichage du formulaire
+  function handleModalForm(action) {
 
-  document.querySelector("#coursList").addEventListener("click",(e) => {
-    
-    const target= e.target;
-    // console.log("ee",e.target);
-    if(target.classList.contains("delete")){
-      target.parentElement.parentElement.remove();
-      showAlert("Cours Supprimé", "danger");
+    if (modalElement) {
+      var modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+      if (action === "open") {
+        modalInstance.show();
+
+      } else if (action === "close") {
+        modalInstance.hide();
+      }
+
     }
-    // alert()
+  }
+  // Listen when modal is closed 
+  modalElement.addEventListener('hidden.bs.modal', function (event) {
+    console.log('Modal is closed!');
+    clearFields();
+    modalTitle.innerHTML = ""
+    currentCours = null
+    saveButton.style.display = 'none';
+    editButton.style.display = 'none';
+    deleteButton.style.display = 'none';
+  });
+
+  // Listen when modal is open
+  modalElement.addEventListener('shown.bs.modal', function (event) {
+    console.log('Modal is opened!');
+    if (currentCours === null) {
+      saveButton.style.display = 'block';
+      modalTitle.innerHTML = "Nouveau Cours"
+    } else {
+      modalTitle.innerHTML = "Informations du Cours"
+      editButton.style.display = 'block';
+      deleteButton.style.display = 'block';
+    }
+  });
+
+  function showAlert(message, className, place) {
+    const div = document.createElement("div");
+    div.className = `alert alert-${className}`;
+    div.appendChild(document.createTextNode(message));
+
+    let container = document.querySelector(".screenContainer");
+    let titleBox = document.querySelector(".titleBox");
+    if (place === FORM) {
+      container = document.querySelector(".modal-body");
+      titleBox = document.querySelector("#coursForm");
+    }
+
+    container.insertBefore(div, titleBox);
+    setTimeout(() => document.querySelector(".alert").remove(), 3000)
+
+  }
+  // vider les champs
+  function clearFields() {
+    document.querySelector("#theme").value = "";
+    document.querySelector("#nbreHeure").value = "";
+    // console.log("eehh");
+
+  }
+  // modification 
+  editButton.addEventListener("click", (e) => {
+    const themeInput= theme.value,
+    nbreHeureInput= nbreHeure.value;
+    console.log(themeInput,nbreHeureInput);
+    
+    if (themeInput === "" || nbreHeureInput === "") {
+      showAlert("Veuillez remplir tous les champs", "danger", FORM)
+    } else {
+      const iscoursExist = AllCours.some((i) => i.theme === themeInput && i.identifiant !== currentCours.identifiant);
+      if (iscoursExist) {
+        console.log("ajout", iscoursExist);
+        showAlert("Ce cours existe déja!", "danger", FORM)
+      } else {
+        const index = AllCours.findIndex(cours => cours.identifiant === currentCours.identifiant);
+        if (index !== -1) {
+          AllCours[index] = { identifiant:currentCours.identifiant, theme: themeInput, nbreHeure: nbreHeureInput }
+          listerCours()
+          handleModalForm("close")
+          showAlert("Cours modifié avec succès", "success", LIST)
+        }else {
+          showAlert("Ce cours n'existe pas!", "danger", FORM)
+        }
+      
+      }
+    }
+
   })
+  // supprimer 
+  deleteButton.addEventListener("click", (e) => {
+    if (currentCours) {
+      const index = AllCours.findIndex(cours => cours.identifiant === currentCours.identifiant);
+      if (index !== -1) {
+        AllCours.splice(index, 1);
+        listerCours()
+        handleModalForm("close")
+        showAlert("Cours supprimé avec succès", "success", LIST)
+      }else {
+        showAlert("Ce cours n'existe pas!", "danger", FORM)
+      }
+    }
+
+  })
+  // ajout 
+  saveButton.addEventListener("click", (e) => {
+    //target.parentElement.parentElement.remove();
+    // showAlert("Cours Supprimé", "danger", LIST);
+    const themeInput= theme.value,
+    nbreHeureInput= nbreHeure.value;
+    console.log(themeInput,nbreHeureInput);
+    
+    if (themeInput === "" || nbreHeureInput === "") {
+      showAlert("Veuillez remplir tous les champs", "danger", FORM)
+    } else {
+      const iscoursExist = AllCours.some((i) => i.theme === themeInput);
+      if (iscoursExist) {
+        console.log("ajout", iscoursExist);
+        showAlert("Ce cours existe déja!", "danger", FORM)
+      } else {
+        const lastId = Math.max(...AllCours.map(i => i.identifiant));
+        console.log("ajout", lastId);
+        const newCours = {
+          identifiant: lastId + 1,
+          theme: themeInput,
+          nbreHeure: nbreHeureInput,
+        }
+        AllCours.push(newCours);
+        listerCours()
+        handleModalForm("close")
+        showAlert("Cours enregistré avec succès", "success", LIST)
+      }
+    }
+  })
+  listerCours()
+})
