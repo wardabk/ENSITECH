@@ -1,29 +1,119 @@
-/* Style global pour les petits écrans */
-.container {
- /*  padding: 20px 20px;
-  margin: 320px; 
-  border-radius: 20px; 
-   margin-top: 50px;  */
-/*   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.1); */
-} 
-.table th{
-  color: darkblue;
-  background-color: #e9ecef;
-  font-weight: bold;
-  
-}
-.table th, .table td {
+ /* Style global pour les petits écrans */
+
+/* .table th, .table td {
   text-align: center;
   
+}  */
+
+
+/* Style global pour les petits écrans */
+/* Style pour le tableau */
+.table th, .table td {
+  text-align: center;
 }
 
-.btn-primary {
-  font-size: 14px;
-  padding: 10px 20px;
+/* Styles pour la section Gestion */
+.gestion {
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  clip-path: inset(0 100% 0 0);
+  animation: l5 5s steps(25) infinite;
+}
+
+.gestion:before {
+  content: "";
+}
+
+
+.button-group {
+  margin: 5px;
+}
+@keyframes l5 {
+  to {
+    clip-path: inset(0 -1ch 0 0);
+  }
 }
 
 /* Media Queries pour les écrans moyens */
 @media (max-width: 768px) {
+  .container {
+    padding: 10px;
+    margin: 10px;
+    box-shadow: none;
+  }
+
+  .row {
+    margin-bottom: 10px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  .form-control {
+    font-size: 14px;
+  }
+
+  .table th, .table td {
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Media Queries pour les petits écrans */
+@media (max-width: 576px) {
+  .table th, .table td {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  .btn-primary {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .form-label {
+    font-size: 12px;
+  }
+
+  .form-control {
+    font-size: 12px;
+  }
+}
+
+
+
+
+
+
+/* HTML: <div class="loader"></div> */
+/* .gestion {
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  clip-path: inset(0 100% 0 0);
+  animation: l5 2s steps(20) infinite;
+ 
+}
+.gestion:before {
+  content:""
+}
+@keyframes l5 {to{clip-path: inset(0 -1ch 0 0)}} */
+
+/* .btn-primary {
+  font-size: 14px;
+  padding: 10px 20px;
+}
+ */
+/* Media Queries pour les écrans moyens */
+/* @media (max-width: 768px) {
   .container {
     padding: 10px;
     margin: 10px;
@@ -54,7 +144,7 @@
 }
 
 /* Media Queries pour les écrans très petits */
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .container {
     padding: 5px;
     margin: 5px;
@@ -81,3 +171,4 @@
     display: block;
   }
 }
+   */
