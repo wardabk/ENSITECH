@@ -147,30 +147,35 @@ function showStudentDetails(id) {
 
 // Fonctionnalité de recherche
 document.querySelector("#search").addEventListener("keyup", (e) => {
-  const searchLetters = e.target.value.toLowerCase();
-  const rows = document.querySelectorAll("#student-table tr");
-  let hasResults = false;
-
-  rows.forEach(row => {
-    const cells = row.querySelectorAll("td");
-    const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(" ");
-    if (rowText.includes(searchLetters)) {
-      row.style.display = "";
-      hasResults = true; // Il y a au moins un résultat
+    const searchLetters = e.target.value.toLowerCase();
+    const rows = document.querySelectorAll("#student-table tr");
+    let hasResults = false;
+  
+    rows.forEach(row => {
+      const cells = row.querySelectorAll("td");
+      const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(" ");
+      if (rowText.includes(searchLetters)) {
+        row.style.display = "";
+        hasResults = true; // Il y a au moins un résultat
+      } else {
+        row.style.display = "none";
+      }
+    });
+  
+    const errorMessage = document.querySelector("#no-results-message");
+  
+    // Debugging to see if error message block is reached
+    console.log("Has results:", hasResults);
+  
+    if (!hasResults) {
+      console.log("Displaying error message.");
+      errorMessage.textContent = "Aucun étudiant trouvé.";
+      errorMessage.style.display = "block";
     } else {
-      row.style.display = "none";
+      errorMessage.style.display = "none";
     }
   });
-
-  // Affiche le message d'erreur si aucun résultat n'est trouvé
-  const errorMessageDiv = document.getElementById('error-message');
-  if (hasResults) {
-    errorMessageDiv.style.display = 'none'; // Cache le message d'erreur si des résultats sont trouvés
-  } else {
-    errorMessageDiv.style.display = 'block'; // Affiche le message d'erreur si aucun résultat n'est trouvé
-  }
-});
-
+  
 
 // Modifier les informations d'un étudiant
 function editStudent(id) {
