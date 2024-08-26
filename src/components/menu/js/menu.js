@@ -64,7 +64,7 @@ function loadMenu(path) {
                 <li class="nav-item">
                 <a class="nav-link " href=${path.homePage}>
                     <i class="fa-solid fa-house"></i>
-                    <span>Acceuil</span>
+                    <span>Dashboard</span>
                 </a>
                 </li>
                 <li class="nav-item">
