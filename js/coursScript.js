@@ -1,10 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const AllCours = [
-    { identifiant: 1, theme: 'Réseau', nbreHeure: 8 },
-    { identifiant: 2, theme: 'Conception', nbreHeure: 16 },
-    { identifiant: 3, theme: 'Algorithmique', nbreHeure: 4 },
-
-  ];
+  const AllCours = JSON.parse(localStorage.getItem('ListCours'))
   const modalElement = document.getElementById('coursFormContainer');
   const saveButton = document.getElementById('saveButton');
   const editButton = document.getElementById('editButton');
@@ -12,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const modalTitle = document.getElementById('modal-title');
   const theme = document.getElementById('theme');
   const nbreHeure = document.getElementById('nbreHeure');
+  const searchInput = document.getElementById('searchInput');
   const LIST = "liste";
   const FORM = "Form";
   // Initialisation du cours selectionné
@@ -25,11 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
     handleModalForm("open")
   }
   // Fonction pour afficher les cours dans le tableau
-  function listerCours() {
+  function listerCours(listCours) {
     const tableBody = document.querySelector('#coursTable tbody');
     tableBody.innerHTML = ''; // Effacer les lignes existantes
 
-    AllCours.forEach(cours => {
+    listCours.forEach(cours => {
       const row = document.createElement('tr');
       row.insertCell(0).textContent = cours.identifiant;
       row.insertCell(1).textContent = cours.theme;
@@ -100,8 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   // vider les champs
   function clearFields() {
-    document.querySelector("#theme").value = "";
-    document.querySelector("#nbreHeure").value = "";
+   theme.value = "";
+    nbreHeure.value = "";
+    searchInput.value = "";
     // console.log("eehh");
 
   }
@@ -122,7 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const index = AllCours.findIndex(cours => cours.identifiant === currentCours.identifiant);
         if (index !== -1) {
           AllCours[index] = { identifiant:currentCours.identifiant, theme: themeInput, nbreHeure: nbreHeureInput }
-          listerCours()
+          listerCours(AllCours)
+          localStorage.setItem("ListCours", JSON.stringify(AllCours));
           handleModalForm("close")
           showAlert("Cours modifié avec succès", "success", LIST)
         }else {
@@ -139,7 +137,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const index = AllCours.findIndex(cours => cours.identifiant === currentCours.identifiant);
       if (index !== -1) {
         AllCours.splice(index, 1);
-        listerCours()
+        listerCours(AllCours)
+        localStorage.setItem("ListCours", JSON.stringify(AllCours));
         handleModalForm("close")
         showAlert("Cours supprimé avec succès", "success", LIST)
       }else {
@@ -172,11 +171,36 @@ document.addEventListener('DOMContentLoaded', function () {
           nbreHeure: nbreHeureInput,
         }
         AllCours.push(newCours);
-        listerCours()
+        listerCours(AllCours)
+        localStorage.setItem("ListCours", JSON.stringify(AllCours));
         handleModalForm("close")
         showAlert("Cours enregistré avec succès", "success", LIST)
       }
     }
   })
-  listerCours()
+
+  // recherche un cours
+searchInput.addEventListener('input', (e) => {
+ /* const searchTerm = e.target.value.toLowerCase();
+  const filteredCours = AllCours.filter(cours => 
+      cours.theme.toLowerCase().includes(searchTerm
+  );
+  listerCours(filteredCours);*/
+  searchTerm = e.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  let filteredCours=AllCours
+      if (searchTerm !== "") {
+         filteredCours = AllCours.filter(cours => 
+          cours?.theme?.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(searchTerm) ||
+          cours?.nbreHeure.toString().includes(searchTerm)
+         
+        );
+        if(filteredCours.length === 0) {
+          showAlert("Aucun résultat", "danger", LIST)
+        }
+        
+      } 
+      listerCours(filteredCours);
+    
+});
+  listerCours(AllCours)
 })

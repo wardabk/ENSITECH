@@ -1,4 +1,7 @@
 function loadMenu(path) {
+  const connectedUser = JSON.parse(localStorage.getItem('connectedUser')); 
+ // console.log("dd", connectedUser);
+  if(connectedUser) {
   var link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = path.cssFile;
@@ -23,13 +26,13 @@ function loadMenu(path) {
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img src=${path.avatar} alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">D. Gassama</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">${connectedUser.prenom[0]}.${connectedUser.nom}</span>
                 </a><!-- End Profile Iamge Icon -->
             <!-- Start Profile -->
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                    <h6>Djimo Gassama</h6>
-                    <span>Responsable des etudes</span>
+                    <h6>${connectedUser.prenom} ${connectedUser.nom}</h6>
+                    <span>${connectedUser.fonction}</span>
                     </li>
                     <li>
                     <hr class="dropdown-divider">
@@ -60,13 +63,14 @@ function loadMenu(path) {
             <!--Start Side bar-->
             <aside id="sidebar" class="sidebar">
             <ul class="sidebar-nav" id="sidebar-nav">
-
-                <li class="nav-item">
+${connectedUser.fonction === "Directeur" ? (
+                `<li class="nav-item">
                 <a class="nav-link " href=${path.homePage}>
                     <i class="fa-solid fa-house"></i>
-                    <span>Acceuil</span>
+                    <span>Dashboard</span>
                 </a>
-                </li>
+                </li>`
+                ):``}
                 <li class="nav-item">
                 <a class="nav-link " href=${path.etudiantPage}>
                    <i class="fa-solid fa-graduation-cap"></i>
@@ -80,11 +84,15 @@ function loadMenu(path) {
                 </a>
                 </li>
                  <li class="nav-item">
-
-
                 <a class="nav-link " href=${path.enseignantPage}>
                   <i class="fa-solid fa-users"></i>
                     <span>Enseignant</span>
+                </a>
+                </li>
+                 <li class="nav-item">
+                <a class="nav-link " href=${path.notePage}>
+                  <i class="fa-solid fa-file-signature"></i>
+                    <span>Note</span>
                 </a>
                 </li>
             </aside>
@@ -93,9 +101,21 @@ function loadMenu(path) {
         `;
   menuContainer.innerHTML = menuContent;
   document.body.insertAdjacentElement("afterbegin", menuContainer);
+
+  } else {
+    window.location.href = "../signin/index.html";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  /* const selectedSidebarItem = localStorage.getItem('selectedSidebarItem');
+  if (selectedSidebarItem) {
+    const selectedItem = document.querySelector(`.sidebar-item[data-id="${selectedSidebarItem}"]`);
+    if (selectedItem) {
+      selectedItem.classList.add('selected');
+    }
+  } */
+
   const select = (el, all = false) => {
     el = el.trim();
     if (all) {
@@ -154,4 +174,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     //loadFooter()
+   /*  document.querySelectorAll('.nav-link').forEach(item => {
+      item.addEventListener('click', function() {
+        console.log("item clicked");
+        document.querySelectorAll('.nav-link').forEach(i => i.classList.remove('selected'));
+        this.classList.add('selected');
+        localStorage.setItem('selectedSidebarItem', this.getAttribute('data-id'));
+      });
+     
+    });*/
+    
 });
