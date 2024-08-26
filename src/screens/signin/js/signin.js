@@ -24,6 +24,7 @@ const ListEnseignant = [
 const ListEnseignantCours = [
     { identifiant: 1,idEnseignant: 1, idCours: 2},
     { identifiant: 2,idEnseignant: 2, idCours: 3},   
+    { identifiant: 3,idEnseignant: 2, idCours: 1},   
 ];
 const ListEtudiantCours = [
     { identifiant: 1,idEtudiant: 1, idCours: 2},
@@ -31,9 +32,9 @@ const ListEtudiantCours = [
     { identifiant: 3,idEtudiant: 2, idCours: 1},   
 ];
 const ListNote = [
-    { identifiant: 1,idEtudiant: 1, idCours: 2, valeur: 15},
-    { identifiant: 2,idEtudiant: 2, idCours: 3, valeur: 12},   
-    { identifiant: 3,idEtudiant: 2, idCours: 1, valeur: 8},   
+    { identifiant: 1,idEtudiant: 1, idCours: 2,idEnseignant: 1, valeur: 15},
+    { identifiant: 2,idEtudiant: 2, idCours: 3,idEnseignant: 2, valeur: 12},   
+    { identifiant: 3,idEtudiant: 2, idCours: 1,idEnseignant: 2, valeur: 8},   
 ];
 function signin(email, password) {
 const connectedUser= ListUsers.find((i)=>i.email == email && i.password=== password)

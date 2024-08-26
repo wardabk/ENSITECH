@@ -84,11 +84,15 @@ ${connectedUser.fonction === "Directeur" ? (
                 </a>
                 </li>
                  <li class="nav-item">
-
-
                 <a class="nav-link " href=${path.enseignantPage}>
                   <i class="fa-solid fa-users"></i>
                     <span>Enseignant</span>
+                </a>
+                </li>
+                 <li class="nav-item">
+                <a class="nav-link " href=${path.notePage}>
+                  <i class="fa-solid fa-file-signature"></i>
+                    <span>Note</span>
                 </a>
                 </li>
             </aside>

@@ -181,12 +181,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // recherche un cours
 searchInput.addEventListener('input', (e) => {
-  const searchTerm = e.target.value.toLowerCase();
+ /* const searchTerm = e.target.value.toLowerCase();
   const filteredCours = AllCours.filter(cours => 
-      cours.theme.toLowerCase().includes(searchTerm)/* ||
-      cours.nbreHeure.includes(searchTerm)*/
+      cours.theme.toLowerCase().includes(searchTerm
   );
-  listerCours(filteredCours);
+  listerCours(filteredCours);*/
+  searchTerm = e.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  let filteredCours=AllCours
+      if (searchTerm !== "") {
+         filteredCours = AllCours.filter(cours => 
+          cours?.theme?.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(searchTerm) ||
+          cours?.nbreHeure.toString().includes(searchTerm)
+         
+        );
+        if(filteredCours.length === 0) {
+          showAlert("Aucun résultat", "danger", LIST)
+        }
+        
+      } 
+      listerCours(filteredCours);
+    
 });
   listerCours(AllCours)
 })
