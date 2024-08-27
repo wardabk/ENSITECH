@@ -18,8 +18,7 @@
     font-weight: bold;
     font-family: monospace;
     font-size: 30px;
-    clip-path: inset(0 100% 0 0);
-    animation: l5 5s steps(25) infinite;
+
   }
   
   .gestion:before {
@@ -86,6 +85,8 @@
       font-size: 12px;
     }
   }
+
+  
   
   
   
