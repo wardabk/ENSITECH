@@ -24,7 +24,11 @@
     font-weight:bold;
   }
 
-  
+  .sous-title{
+    font-size:1.3rem;
+    font-weight:bold;
+    color:#012970;
+  }
   .chart-container {
     position: relative;
     min-height: 300px;
