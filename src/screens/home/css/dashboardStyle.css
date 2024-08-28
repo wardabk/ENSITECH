@@ -1,6 +1,6 @@
 .dashboard .card {
     background-color: whitesmoke;
-    color:#4154f1;
+    color:#012970;
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
@@ -20,7 +20,7 @@
   }
    
   .title{
-    color:#4154f1;
+    color:#012970;
     font-weight:bold;
   }
 
