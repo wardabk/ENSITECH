@@ -11,13 +11,13 @@ const ListUsers = [
 ];
 
 const ListEtudiant = [
-    { identifiant: 1, prenom: "Aicha", nom: "Bendjir", email: "aicha@gmail.com", adresse: "15 avn tn", telephone: "66445500", dateNaissance: "01/01/1980" },
-    { identifiant: 2, prenom: "Jean Batiste", nom: "Goumou", email: "jean@gmail.com", adresse: "15 avn tn", telephone: "66445501", dateNaissance: "01/01/1980" },
+    { id: 1, prenom: "Aicha", nom: "Bendjir", email: "aicha@gmail.com", adresse: "15 avn tn", telephone: "66445500", dateNaissance: "01/01/1980" },
+    { id: 2, prenom: "Jean Batiste", nom: "Goumou", email: "jean@gmail.com", adresse: "15 avn tn", telephone: "66445501", dateNaissance: "01/01/1980" },
     
 ];
 const ListEnseignant = [
-    { identifiant: 1, prenom: "Oumou", nom: "Sow", email: "oumou@gmail.com", adresse: "15 avn tn", telephone: "88445500", dateNaissance: "01/01/1980" },
-    { identifiant: 2, prenom: "Cheikh Oumar", nom: "Diakité", email: "cheikh@gmail.com", adresse: "15 avn tn", telephone: "88445501", dateNaissance: "01/01/1980" },
+    { id: 1, prenom: "Oumou", nom: "Sow", email: "oumou@gmail.com", adresse: "15 avn tn", telephone: "88445500", dateNaissance: "01/01/1980" },
+    { id: 2, prenom: "Cheikh Oumar", nom: "Diakité", email: "cheikh@gmail.com", adresse: "15 avn tn", telephone: "88445501", dateNaissance: "01/01/1980" },
     
 ];
 
@@ -42,7 +42,7 @@ const connectedUser= ListUsers.find((i)=>i.email == email && i.password=== passw
 if(connectedUser){
     localStorage.setItem("connectedUser", JSON.stringify(connectedUser));
     localStorage.setItem("ListCours", JSON.stringify(ListCours));
-    localStorage.setItem("ListEtudiant", JSON.stringify(ListEtudiant));
+    localStorage.setItem("etudiants", JSON.stringify(ListEtudiant));
     localStorage.setItem("ListEnseignant", JSON.stringify(ListEnseignant));
     localStorage.setItem("ListEnseignantCours", JSON.stringify(ListEnseignantCours));
     localStorage.setItem("ListEtudiantCours", JSON.stringify(ListEtudiantCours));
