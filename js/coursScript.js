@@ -82,6 +82,9 @@ document.addEventListener('DOMContentLoaded', function () {
     /*if(document.querySelector(".alert")) {
       document.querySelector(".alert").remove()
     }*/
+      if(document.querySelector(".alert")) {
+        document.querySelector(".alert").remove()
+      }
     const div = document.createElement("div");
     div.className = `alert alert-${className}`;
     div.appendChild(document.createTextNode(message));
