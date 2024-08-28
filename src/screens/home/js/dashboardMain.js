@@ -2,23 +2,18 @@ const chart1 = document.getElementById('chartPresence').getContext('2d');
 const chartPresence = new Chart(chart1, {
   type: 'bar',
   data: {
-    labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi','Samedi'],
+    labels: ['Réseau et Télécommunication', 'Développement de logiciels',
+             'Informatique embarquée', 'Développement Web Mobile'],
+
     datasets: [
     {
-      label: 'le pourcentage des étudiants présents (en %)',
-      data: [80,85,87,90,82,88],
+      label: 'la moyenne générale des classes en 2024',
+      data: [14.5, 15.82 ,15.02,16],
       backgroundColor: 'rgba(54, 162, 235, 0.7)', // Couleur des barres
       borderColor: 'rgba(54, 162, 235, 1)', // Couleur de la bordure des barres
       borderWidth: 1
-    },
-    {
-        label: 'le pourcentage des étudiants absents (en %)',
-        data: [20,15,13,10,18,12],
-        backgroundColor: 'rgb(255, 99, 132)', // Couleur des barres
-        borderColor: 'rgb(255, 99, 132)', // Couleur de la bordure des barres
-        borderWidth: 1
-      }
-   ]
+    }
+      ]
   },
   options: {
     responsive:true,
