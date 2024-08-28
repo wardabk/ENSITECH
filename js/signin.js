@@ -30,7 +30,7 @@ const ListUsers = [
 
 const ListEtudiant = [
   {
-    identifiant: 1,
+    id: 1,
     prenom: "Aicha",
     nom: "Bendjir",
     email: "aicha@gmail.com",
@@ -39,7 +39,7 @@ const ListEtudiant = [
     dateNaissance: "01/01/1980",
   },
   {
-    identifiant: 2,
+    id: 2,
     prenom: "Jean Batiste",
     nom: "Goumou",
     email: "jean@gmail.com",
@@ -50,7 +50,7 @@ const ListEtudiant = [
 ];
 const ListEnseignant = [
   {
-    identifiant: 1,
+    id: 1,
     prenom: "Oumou",
     nom: "Sow",
     email: "oumou@gmail.com",
@@ -59,7 +59,7 @@ const ListEnseignant = [
     dateNaissance: "01/01/1980",
   },
   {
-    identifiant: 2,
+    id: 2,
     prenom: "Cheikh Oumar",
     nom: "Diakité",
     email: "cheikh@gmail.com",
@@ -92,7 +92,7 @@ function signin(email, password) {
   if (connectedUser) {
     localStorage.setItem("connectedUser", JSON.stringify(connectedUser));
     localStorage.setItem("ListCours", JSON.stringify(ListCours));
-    localStorage.setItem("ListEtudiant", JSON.stringify(ListEtudiant));
+    localStorage.setItem("etudiants", JSON.stringify(ListEtudiant));
     localStorage.setItem("ListEnseignant", JSON.stringify(ListEnseignant));
     localStorage.setItem(
       "ListEnseignantCours",

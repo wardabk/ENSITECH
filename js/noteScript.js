@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const AllNote = JSON.parse(localStorage.getItem('ListNote'))
   const AllCours = JSON.parse(localStorage.getItem('ListCours'))
-  const AllEtudiant = JSON.parse(localStorage.getItem('ListEtudiant'))
+  const AllEtudiant = JSON.parse(localStorage.getItem('etudiants'))
   const AllEnseignant = JSON.parse(localStorage.getItem('ListEnseignant'))
 
   const modalElement = document.getElementById('noteFormContainer');
@@ -9,13 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const editButton = document.getElementById('editButton');
   const deleteButton = document.getElementById('deleteButton');
   const modalTitle = document.getElementById('modal-title');
-  const theme = document.getElementById('theme');
-  const nbreHeure = document.getElementById('nbreHeure');
   const searchInput = document.getElementById('searchInput');
   const etudiantSelect = document.getElementById('etudiantSelect');
   const enseignantSelect = document.getElementById('enseignantSelect');
   const coursSelect = document.getElementById('coursSelect');
   const noteValue = document.getElementById('noteValue');
+  const alertElement = document.querySelector(".alert")
   const LIST = "liste";
   const FORM = "Form";
   // Initialisation du note selectionné
@@ -44,14 +43,14 @@ const optionEmptyEtudiant = document.createElement('option');
 
       AllEtudiant.forEach(item => {
         const option = document.createElement('option');
-        option.value = item.identifiant;
+        option.value = item.id;
         option.textContent =`${item?.prenom ?? ""} ${item?.nom ?? ""}`;
         etudiantSelect.appendChild(option);
     });
 
       AllEnseignant.forEach(item => {
         const option = document.createElement('option');
-        option.value = item.identifiant;
+        option.value = item.id;
         option.textContent =`${item?.prenom ?? ""} ${item?.nom ?? ""}`;
         enseignantSelect.appendChild(option);
     });
@@ -74,10 +73,11 @@ const optionEmptyEtudiant = document.createElement('option');
   function listerNote(ListNote) {
     const tableBody = document.querySelector('#noteTable tbody');
     tableBody.innerHTML = '';
+    console.log("ddd",AllEtudiant);
     
     const noteArray = ListNote.map((note) => {
-      const enseignant = AllEnseignant.find((i) => i.identifiant === note.idEnseignant)
-      const etudiant = AllEtudiant.find((i) => i.identifiant === note.idEtudiant)
+      const enseignant = AllEnseignant.find((i) => i.id === note.idEnseignant)
+      const etudiant = AllEtudiant.find((i) => i.id === note.idEtudiant)
       const cours = AllCours.find((i) => i.identifiant === note.idCours)
       const item = {
         ...note,
@@ -100,8 +100,8 @@ const optionEmptyEtudiant = document.createElement('option');
       row.insertCell(4).textContent = note.valeur;
       const actionCell = row.insertCell(5);
       const viewButton = document.createElement('button');
-      viewButton.className = 'btn btn-primary';
-      viewButton.textContent = 'Voir';
+      viewButton.className = 'btn btn-success';
+      viewButton.textContent = 'Détails';
       viewButton.onclick = () => affichernote(note);
       actionCell.appendChild(viewButton);
       tableBody.appendChild(row);
@@ -155,14 +155,14 @@ const optionEmptyEtudiant = document.createElement('option');
 
       AllEtudiant.forEach(item => {
         const option = document.createElement('option');
-        option.value = item.identifiant;
+        option.value = item.id;
         option.textContent =`${item?.prenom ?? ""} ${item?.nom ?? ""}`;
         etudiantSelect.appendChild(option);
     });
 
       AllEnseignant.forEach(item => {
         const option = document.createElement('option');
-        option.value = item.identifiant;
+        option.value = item.id;
         option.textContent =`${item?.prenom ?? ""} ${item?.nom ?? ""}`;
         enseignantSelect.appendChild(option);
     });
@@ -185,6 +185,11 @@ const optionEmptyEtudiant = document.createElement('option');
   });
 
   function showAlert(message, className, place) {
+    // console.log("showAlert",alertElement, document.querySelector(".alert"));
+    if(document.querySelector(".alert")) {
+      document.querySelector(".alert").remove()
+    }
+    
     const div = document.createElement("div");
     div.className = `alert alert-${className}`;
     div.appendChild(document.createTextNode(message));
@@ -197,7 +202,12 @@ const optionEmptyEtudiant = document.createElement('option');
     }
 
     container.insertBefore(div, titleBox);
-    setTimeout(() => document.querySelector(".alert").remove(), 3000)
+    setTimeout(() => {
+      if(document.querySelector(".alert")) {
+      document.querySelector(".alert").remove()
+      }
+    }
+    , 3000)
 
   }
   // vider les champs
@@ -301,6 +311,8 @@ const optionEmptyEtudiant = document.createElement('option');
   searchInput.addEventListener('input', (e) => {
 
     searchTerm = e.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+   
+    
 let filterednote=fullDataNote
     if (searchTerm !== "") {
       console.log("searchTerm exist", fullDataNote.length);
@@ -314,7 +326,14 @@ let filterednote=fullDataNote
         showAlert("Aucun résultat", "danger", LIST)
       }
       
-    } 
+    }else {
+      console.log("no searchh",alertElement);
+      /*if(alertElement) {
+        console.log("ddddd alert remove");
+        
+        alertElement.remove()
+      }*/
+    }
       listerNote(filterednote);
 
   });

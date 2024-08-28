@@ -1,11 +1,12 @@
-let etudiants1 = JSON.parse(localStorage.getItem("ListEtudiant"));
+/* let etudiants1 = JSON.parse(localStorage.getItem("ListEtudiant"));
 let etudiants = etudiants1.map((i) => {
   const item = {
     ...i,
     id: i.identifiant,
   };
   return item;
-});
+}); */
+let etudiants = [];
 let idCounter = 1;
 
 // Afficher le formulaire d'ajout d'étudiant
