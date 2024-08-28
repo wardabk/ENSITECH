@@ -205,9 +205,6 @@ const optionEmptyEtudiant = document.createElement('option');
       if(document.querySelector(".alert")) {
       document.querySelector(".alert").remove()
       }
-      /*if(alertElement) {
-        alertElement.remove()
-      }*/
     }
     , 3000)
 
