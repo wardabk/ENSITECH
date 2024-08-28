@@ -1,6 +1,6 @@
 .dashboard .card {
     background-color: whitesmoke;
-    color:#012970;
+    color:#4154f1;
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
@@ -20,14 +20,14 @@
   }
    
   .title{
-    color:#012970;
+    color:#4154f1;
     font-weight:bold;
   }
 
   .sous-title{
     font-size:1.3rem;
     font-weight:bold;
-    color:#012970;
+    color:#4154f1;
   }
   .chart-container {
     position: relative;
