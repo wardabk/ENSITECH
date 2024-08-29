@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
       row.insertCell(2).textContent = cours.nbreHeure;
       const actionCell = row.insertCell(3);
       const viewButton = document.createElement('button');
-      viewButton.className = 'btn btn-primary';
-      viewButton.textContent = 'Voir';
+      viewButton.className = 'btn btn-success';
+      viewButton.textContent = 'Détails';
       viewButton.onclick = () => afficherCours(cours);
       actionCell.appendChild(viewButton);
       tableBody.appendChild(row);
@@ -79,6 +79,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function showAlert(message, className, place) {
+    /*if(document.querySelector(".alert")) {
+      document.querySelector(".alert").remove()
+    }*/
+      if(document.querySelector(".alert")) {
+        document.querySelector(".alert").remove()
+      }
     const div = document.createElement("div");
     div.className = `alert alert-${className}`;
     div.appendChild(document.createTextNode(message));
@@ -89,9 +95,16 @@ document.addEventListener('DOMContentLoaded', function () {
       container = document.querySelector(".modal-body");
       titleBox = document.querySelector("#coursForm");
     }
-
+   
     container.insertBefore(div, titleBox);
-    setTimeout(() => document.querySelector(".alert").remove(), 3000)
+    // console.log("ddd show alert 00", container,titleBox);
+    setTimeout(() => {
+      if(document.querySelector(".alert")) {
+      document.querySelector(".alert").remove()
+      }
+    }
+    , 3000)
+   
 
   }
   // vider les champs
@@ -195,6 +208,8 @@ searchInput.addEventListener('input', (e) => {
          
         );
         if(filteredCours.length === 0) {
+        
+          
           showAlert("Aucun résultat", "danger", LIST)
         }
         

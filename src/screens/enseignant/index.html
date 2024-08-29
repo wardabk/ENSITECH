@@ -11,23 +11,161 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
     crossorigin="anonymous"
   />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   />
   <link rel="stylesheet" href="../../../css/style.css">
+  <link rel="stylesheet" href="../../../css/tableau.css" />
+
 </head>
 <body>
-    <main class="container" >
-        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
-          <div class="text-center titleBox">
-            <h1 class="font-weight-bold text-primary">Liste des Enseignants</h1>
-          </div>
-          <p>Welcome to the Ensitech Enseignant Page! Here you can manage your content.</p>
-        </div>
+
+    <main class="container mt-5" id="mains">
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5 screenContainer">
+            <div class="text-center titleBox">
+                <h1 class="font-weight-bold text-primary">Liste des Enseignants</h1>
+            </div>
+    
+            <div class="row">
+                <div class="col-12 col-md-8 col-lg-6 mx-auto">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="form-control"
+                        placeholder="Rechercher un enseignant..."
+                    />
+                </div>
+            </div>
+    
+            <section class="p-3">
+                <div class="row">
+                    <div class="col-12s p-2 d-flex justify-content-end">
+                        <button
+                            class="btn btn-primary newUser"
+                            data-bs-toggle="modal"
+                            data-bs-target="#enseignantFormContainer"
+                        >
+                            Nouveau Enseignant
+                        </button>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="table-responsive">
+                        <table
+                            class="table table-striped table-hover mt-3 text-center table-bordered"
+                            id="enseignantTable"
+                        >
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th>Date de Naissance</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+    
+            <!-- Modal pour ajouter ou modifier un enseignant -->
+            <div class="modal fade" id="enseignantFormContainer">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-title"></h4>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+    
+                        <div class="modal-body">
+                            <form id="enseignantForm">
+                                <div class="form-group mt-2">
+                                    <label for="prenom">Prénom</label>
+                                    <input type="text" class="form-control" id="prenom" placeholder="Prénom" required />
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="nom">Nom</label>
+                                    <input type="text" class="form-control" id="nom" placeholder="Nom" required />
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Email" required />
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="adresse">Adresse</label>
+                                    <input type="text" class="form-control" id="adresse" placeholder="Adresse" required />
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="telephone">Téléphone</label>
+                                    <input type="text" class="form-control" id="telephone" placeholder="Téléphone" required />
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="dateNaissance">Date de Naissance</label>
+                                    <input type="date" class="form-control" id="dateNaissance" placeholder="Date de Naissance" required />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success submit" id="saveButton" style="display: none">Ajouter</button>
+                            <button class="btn btn-warning submit" id="editButton" style="display: none">Modifier</button>
+                            <button class="btn btn-danger submit" id="deleteButton" style="display: none">Supprimer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Modal pour associer un enseignant à un cours -->
+            <div class="modal fade" id="associationFormContainer">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Associer Enseignant à un Cours</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="associationForm">
+                                <div class="form-group mt-2">
+                                    <label for="enseignantSelect">Enseignant</label>
+                                    <select class="form-control" id="enseignantSelect">
+                                        <!-- Options d'enseignants seront ajoutées dynamiquement -->
+                                    </select>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label for="coursSelect">Cours</label>
+                                    <select class="form-control" id="coursSelect">
+                                        <!-- Options de cours seront ajoutées dynamiquement -->
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" id="associerButton">Associer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
       </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+     crossorigin="anonymous"></script>
    
     <script>
         const PATH = {
@@ -46,7 +184,8 @@
           loadMenu(PATH);
         });
       </script>
-       <script src="../../components/menu/js/menu.js"></script>
-       <script src="../../../js/signout.js"></script>
+      <script src="../../components/menu/js/menu.js"></script>
+      <script src="../../../js/signout.js"></script>
+      <script src="../../../js/enseignantScript.js"></script>
 </body>
 </html>

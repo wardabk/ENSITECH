@@ -66,7 +66,7 @@ function loadMenu(path) {
 ${connectedUser.fonction === "Directeur" ? (
                 `<li class="nav-item">
                 <a class="nav-link " href=${path.homePage}>
-                    <i class="fa-solid fa-house"></i>
+                   <i class="fa-duotone fa-solid fa-house"></i>
                     <span>Dashboard</span>
                 </a>
                 </li>`
@@ -95,7 +95,8 @@ ${connectedUser.fonction === "Directeur" ? (
                     <span>Note</span>
                 </a>
                 </li>
-            </aside>
+
+              </aside>
             <!--End Side bar-->
             </header>
         `;

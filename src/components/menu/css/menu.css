@@ -4,7 +4,7 @@
 }
 /*Header-*/
 .logo {
-    line-height: 1;
+  line-height: 1;
   }
   
   @media (min-width: 1200px) {
@@ -23,6 +23,7 @@
     font-weight: 700;
     color: #012970;
     font-family: "Nunito", sans-serif;
+   
   }
   
 .header {
@@ -311,6 +312,8 @@
 }
 .sidebar-nav li:hover {
   background-color: blue;
+  border-radius: 4px;
+ 
 }
 
 /*.sidebar-nav .nav-item:hover {
@@ -359,6 +362,8 @@
   color: #012970;
   /* background: #f6f9ff; */
   background:  #417bee;
+  color: white;
+ 
 }
 .sidebar-nav .nav-link.selected {
   background-color: #417bee;
@@ -367,6 +372,8 @@
 
 .sidebar-nav .nav-link:hover i {
   color: #012970;
+  color: white;
+  
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {

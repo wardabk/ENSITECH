@@ -73,6 +73,7 @@ const optionEmptyEtudiant = document.createElement('option');
   function listerNote(ListNote) {
     const tableBody = document.querySelector('#noteTable tbody');
     tableBody.innerHTML = '';
+    console.log("ddd",AllEtudiant);
     
     const noteArray = ListNote.map((note) => {
       const enseignant = AllEnseignant.find((i) => i.id === note.idEnseignant)
@@ -205,9 +206,6 @@ const optionEmptyEtudiant = document.createElement('option');
       if(document.querySelector(".alert")) {
       document.querySelector(".alert").remove()
       }
-      /*if(alertElement) {
-        alertElement.remove()
-      }*/
     }
     , 3000)
 
