@@ -6,7 +6,7 @@ let etudiants = etudiants1.map((i) => {
   };
   return item;
 }); */
-let etudiants = [];
+let etudiants = JSON.parse(localStorage.getItem("etudiants"));
 let idCounter = 1;
 
 // Afficher le formulaire d'ajout d'étudiant
@@ -38,33 +38,34 @@ function loadStudents() {
     idCounter = etudiants.reduce((maxId, e) => Math.max(maxId, e.id), 0) + 1;
     displayStudents(etudiants);
   } else {
-    etudiants = [];  // Initialiser une liste vide si aucun étudiant n'est stocké
+    etudiants = []; // Initialiser une liste vide si aucun étudiant n'est stocké
   }
 }
-
 
 // Afficher les étudiants dans le tableau
 function displayStudents(students) {
   const table = document.getElementById("student-table");
-  table.innerHTML = ""; // Effacer les lignes existantes
+  if (table) {
+    table.innerHTML = ""; // Effacer les lignes existantes
 
-  students.forEach((etudiant) => {
-    const row = table.insertRow();
-    row.setAttribute("data-id", etudiant.id);
-    row.insertCell(0).textContent = etudiant.id;
-    row.insertCell(1).textContent = etudiant.nom;
-    row.insertCell(2).textContent = etudiant.prenom;
-    row.insertCell(3).textContent = etudiant.telephone;
+    students.forEach((etudiant) => {
+      const row = table.insertRow();
+      row.setAttribute("data-id", etudiant.id);
+      row.insertCell(0).textContent = etudiant.id;
+      row.insertCell(1).textContent = etudiant.nom;
+      row.insertCell(2).textContent = etudiant.prenom;
+      row.insertCell(3).textContent = etudiant.telephone;
 
-    const actionCell = row.insertCell(4);
+      const actionCell = row.insertCell(4);
 
-    // Créer le bouton Détails uniquement
-    const viewButton = document.createElement("button");
-    viewButton.className = "btn btn-success";
-    viewButton.textContent = "Détails";
-    viewButton.onclick = () => showStudentDetails(etudiant.id);
-    actionCell.appendChild(viewButton);
-  });
+      // Créer le bouton Détails uniquement
+      const viewButton = document.createElement("button");
+      viewButton.className = "btn btn-success";
+      viewButton.textContent = "Détails";
+      viewButton.onclick = () => showStudentDetails(etudiant.id);
+      actionCell.appendChild(viewButton);
+    });
+  }
 }
 
 // Ajouter un nouvel étudiant
@@ -193,6 +194,29 @@ function showStudentDetails(id) {
     template.querySelector(".student-date-naissance").textContent =
       etudiant.dateNaissance;
 
+    // Ajouter les cours associés
+    const coursSection = document.createElement("p");
+    coursSection.innerHTML = "<strong>Cours Associés:</strong> ";
+
+    const AllCours = JSON.parse(localStorage.getItem("ListCours"));
+    const etudiantCours = JSON.parse(localStorage.getItem("ListEtudiantCours"));
+    const coursAssocie = etudiantCours.filter(
+      (i) => i.idEtudiant === etudiant.id
+    );
+    console.log("Cours", coursAssocie);
+    const coursNom = coursAssocie
+      .map((e) => {
+        //e.idEtudiant === etudiant.id;
+        const name = AllCours.find((i) => i.identifiant === e.idCours);
+        const item = { cours: name?.theme ?? "" };
+        return item;
+      })
+      .map((e) => e.cours);
+    coursSection.innerHTML += coursNom.join(",");
+    const studentCours = coursNom.join(",");
+
+    template.querySelector(".student-cours-associe").textContent = studentCours;
+    console.log("Nom du cours", studentCours);
     modalBody.innerHTML = "";
     modalBody.appendChild(template);
 
@@ -204,6 +228,9 @@ function showStudentDetails(id) {
       .querySelector("#studentModal .btn-danger")
       .setAttribute("data-id", id);
 
+    document.querySelector("#studentModal .btn-warning").onclick = function () {
+      window.open(`associerCours.html?id=${id}`, "width=600,height=400");
+    };
     modal.show();
   }
 }
@@ -214,19 +241,20 @@ function modifierEtudiant() {
     .querySelector("#studentModal .btn-info")
     .getAttribute("data-id");
   if (id) {
-    const modal = bootstrap.Modal.getInstance(document.getElementById("studentModal"));
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("studentModal")
+    );
     modal.hide(); // Fermer le modal des détails
 
     editStudent(parseInt(id, 10));
   }
 }
 
-
 // Modifier les informations d'un étudiant
 function editStudent(id) {
   const student = etudiants.find((etudiant) => etudiant.id === id);
   if (!student) return;
-
+console.log("Mon id", id)
   // Remplir le formulaire avec les informations de l'étudiant
   document.getElementById("nom").value = student.nom;
   document.getElementById("prenom").value = student.prenom;
@@ -238,7 +266,9 @@ function editStudent(id) {
   showForm(); // Afficher le formulaire de modification
 
   // Changer le texte du bouton de "Ajouter" à "Modifier"
-  const submitButton = document.querySelector("#student-form button[type='button']");
+  const submitButton = document.querySelector(
+    "#student-form button[type='button']"
+  );
   submitButton.textContent = "Modifier";
 
   // Réassigner l'événement onclick au bouton pour qu'il mette à jour l'étudiant
@@ -259,9 +289,9 @@ function editStudent(id) {
 
     showTable(); // Afficher la liste des étudiants
     document.getElementById("student-form").reset();
+    submitButton.textContent = "Ajouter";
   };
 }
-
 
 // Fonction pour supprimer un étudiant depuis le modal
 function supprimerEtudiant() {
@@ -291,3 +321,56 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("search")
     .addEventListener("input", rechercherEtudiants);
 });
+
+// Association étudiant / cours
+
+// Récupérer l'ID de l'étudiant à partir de l'URL
+const urlParams = new URLSearchParams(window.location.search);
+const studentId = urlParams.get("id");
+
+// Charger les détails de l'étudiant et les cours
+document.addEventListener("DOMContentLoaded", function () {
+  const etudiants = JSON.parse(localStorage.getItem("etudiants"));
+  const etudiant = etudiants.find((e) => e.id == studentId);
+  const studentInfoDiv = document.getElementById("student-info");
+  if (etudiant) {
+    studentInfoDiv.innerHTML = `
+              <p><strong>ID:</strong> ${etudiant.id}</p>
+              <p><strong>Nom:</strong> ${etudiant.nom}</p>
+              <p><strong>Prénom:</strong> ${etudiant.prenom}</p>
+              <p><strong>Téléphone:</strong> ${etudiant.telephone}</p>
+              <p><strong>Email:</strong> ${etudiant.email}</p>
+          `;
+  }
+
+  // Charger les cours dans la liste déroulante
+  const AllCours = JSON.parse(localStorage.getItem("ListCours"));
+  const coursSelect = document.getElementById("cours");
+  if (coursSelect) {
+    AllCours.forEach((cours) => {
+      const option = document.createElement("option");
+      option.value = cours.identifiant;
+      option.textContent = `${cours.theme} - ${cours.nbreHeure} heures`;
+      //console.log("L'option de choix", option);
+      coursSelect.appendChild(option);
+    });
+  }
+  //console.log("Tous les cours", coursSelect);
+});
+
+// Fonction pour associer un cours à un étudiant
+function associerCours() {
+  const selectedCoursId = document.getElementById("cours").value;
+  const etudiantCours = JSON.parse(localStorage.getItem("ListEtudiantCours"));
+  //const idCounter = Math.max(...etudiantCours.map((i) => i.id));
+  const idCounter = Math.max(...etudiantCours.map((i) => i.identifiant));
+  const newRegister = {
+    identifiant: idCounter,
+    idEtudiant: parseInt(studentId),
+    idCours: parseInt(selectedCoursId),
+  };
+  console.log("Infos", newRegister);
+
+  // etudiantCours.push(newRegister);
+  // localStorage.setItem("ListEtudiantCours", JSON.stringify(etudiantCours));
+}

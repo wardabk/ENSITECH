@@ -43,7 +43,6 @@
             value=""
             style="width: 400px; height: 40px; margin-left: 248px"
           />
-
         </form>
 
         <!-- Message de succès, initialement caché -->
@@ -180,100 +179,115 @@
 
       <!-- les détails de l'étudiant -->
       <div
-      id="studentModal"
-      class="modal fade"
-      tabindex="-1"
-      aria-labelledby="studentModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header bg-info">
-            <h5 class="modal-title" id="studentModalLabel">
-              Détails de l'Étudiant
-            </h5>
-            <button
-              type="button"
-              class="btn-close text-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!-- Formulaire de modification dans le modal -->
-            <form id="student-modal-form">
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label for="modal-nom" class="form-label">Nom</label>
+        id="studentModal"
+        class="modal fade"
+        tabindex="-1"
+        aria-labelledby="studentModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header bg-info">
+              <h5 class="modal-title" id="studentModalLabel">
+                Détails de l'Étudiant
+              </h5>
+              <button
+                type="button"
+                class="btn-close text-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- Formulaire de modification dans le modal -->
+              <form id="student-modal-form">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label for="modal-nom" class="form-label">Nom</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="modal-nom"
+                      placeholder="Nom"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="modal-prenom" class="form-label">Prénom</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="modal-prenom"
+                      placeholder="Prénom"
+                    />
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="modal-telephone" class="form-label"
+                    >Téléphone</label
+                  >
                   <input
                     type="text"
                     class="form-control"
-                    id="modal-nom"
-                    placeholder="Nom"
+                    id="modal-telephone"
+                    placeholder="Numéro de Téléphone"
                   />
                 </div>
-                <div class="col-md-6">
-                  <label for="modal-prenom" class="form-label">Prénom</label>
+
+                <div class="mb-3">
+                  <label for="modal-email" class="form-label"
+                    >Adresse Email</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="modal-email"
+                    placeholder="Email"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="modal-adresse" class="form-label">Adresse</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="modal-prenom"
-                    placeholder="Prénom"
+                    id="modal-adresse"
+                    placeholder="Adresse"
                   />
                 </div>
-              </div>
-    
-              <div class="mb-3">
-                <label for="modal-telephone" class="form-label">Téléphone</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="modal-telephone"
-                  placeholder="Numéro de Téléphone"
-                />
-              </div>
-    
-              <div class="mb-3">
-                <label for="modal-email" class="form-label">Adresse Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="modal-email"
-                  placeholder="Email"
-                />
-              </div>
-    
-              <div class="mb-3">
-                <label for="modal-adresse" class="form-label">Adresse</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="modal-adresse"
-                  placeholder="Adresse"
-                />
-              </div>
-    
-              <div class="mb-3">
-                <label for="modal-date_naissance" class="form-label"
-                  >Date de Naissance</label
-                >
-                <input type="date" class="form-control" id="modal-date_naissance" />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-info" onclick="modifierEtudiant()">
-              Modifier
-            </button>
-            <button type="button" class="btn btn-danger" onclick="supprimerEtudiant()">
-              Supprimer
-            </button>
-            <button type="button" class="btn btn-warning">Associer</button>
+
+                <div class="mb-3">
+                  <label for="modal-date_naissance" class="form-label"
+                    >Date de Naissance</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="modal-date_naissance"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-info"
+                onclick="modifierEtudiant()"
+              >
+                Modifier
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                onclick="supprimerEtudiant()"
+              >
+                Supprimer
+              </button>
+              <button type="button" class="btn btn-warning" onclick="">Associer</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
 
       <template id="studentDetailsTemplate">
         <p><strong>ID:</strong> <span class="student-id"></span></p>
@@ -286,7 +300,11 @@
         <p><strong>Adresse:</strong> <span class="student-adresse"></span></p>
         <p>
           <strong>Date de Naissance:</strong>
-          <span class="student-date-naissance"></span>
+          <span class="student-date-naissance"> </span>
+        </p>
+        <p>
+          <strong>Cours associé:</strong>
+          <span class="student-cours-associe"></span>
         </p>
       </template>
     </main>
