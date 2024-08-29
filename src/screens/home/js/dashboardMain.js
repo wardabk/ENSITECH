@@ -13,7 +13,7 @@ const chartPresence = new Chart(chart1, {
       borderColor: 'rgba(54, 162, 235, 1)', // Couleur de la bordure des barres
       borderWidth: 1
     }
-      ]
+      ]git a
   },
   options: {
     responsive:true,
