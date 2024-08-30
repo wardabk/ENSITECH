@@ -12,7 +12,7 @@ function loadMenu(path) {
             <!-- Start Logo div -->
             <div class="d-flex align-items-center justify-content-between">
                 <a href="index.html" class="logo d-flex align-items-center">
-                <img src=${path.logo} alt="">
+            
                 <span class="d-none d-lg-block">Ensitech</span>
                 </a>
                 <i class="fa-solid fa-bars toggle-sidebar-btn"></i>
