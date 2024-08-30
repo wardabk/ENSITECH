@@ -6,6 +6,9 @@
 .logo {
   line-height: 1;
   }
+ .logo{
+  text-decoration: none;
+ } 
   
   @media (min-width: 1200px) {
     .logo {
@@ -13,10 +16,6 @@
     }
   }
   
-  .logo img {
-    max-height: 26px;
-    margin-right: 6px;
-  }
   
   .logo span {
     font-size: 26px;
