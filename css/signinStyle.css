@@ -58,12 +58,12 @@
 }
 
 .footer span {
-  color:#8a6d03;
+  color:#333333;
   font-weight: 900;
 }
 .footer a {
    text-decoration: none;
-   color:#8a6d03;
+   color:#333333;
 }
 
 .footer a:hover {
