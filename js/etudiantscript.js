@@ -11,6 +11,9 @@ let idCounter = 1;
 
 // Afficher le formulaire d'ajout d'étudiant
 function showForm() {
+  document.getElementById('student-list-title').style.display = 'none';
+  document.getElementById('search-bar').style.display = 'none';
+
   document.getElementById("table-container").classList.add("d-none");
   document.getElementById("form-container").classList.remove("d-none");
   document.getElementById("success-message").classList.add("d-none");
@@ -19,6 +22,8 @@ function showForm() {
 
 // Afficher le tableau des étudiants
 function showTable() {
+  document.getElementById('student-list-title').style.display = 'block';
+  document.getElementById('search-bar').style.display = 'flex';
   document.getElementById("form-container").classList.add("d-none");
   document.getElementById("table-container").classList.remove("d-none");
   document.getElementById("success-message").classList.add("d-none");
@@ -220,6 +225,8 @@ function showStudentDetails(id) {
     modalBody.innerHTML = "";
     modalBody.appendChild(template);
 
+    
+
     // Ajout de l'ID sur les boutons Modifier et Supprimer
     document
       .querySelector("#studentModal .btn-info")
@@ -237,38 +244,32 @@ function showStudentDetails(id) {
 
 // Fonction pour modifier un étudiant depuis le modal
 function modifierEtudiant() {
-  const id = document
-    .querySelector("#studentModal .btn-info")
-    .getAttribute("data-id");
+  const id = document.querySelector("#studentModal .btn-info").getAttribute("data-id");
   if (id) {
-    const modal = bootstrap.Modal.getInstance(
-      document.getElementById("studentModal")
-    );
+    const modal = bootstrap.Modal.getInstance(document.getElementById("studentModal"));
     modal.hide(); // Fermer le modal des détails
-
     editStudent(parseInt(id, 10));
   }
 }
+
 
 // Modifier les informations d'un étudiant
 function editStudent(id) {
   const student = etudiants.find((etudiant) => etudiant.id === id);
   if (!student) return;
-console.log("Mon id", id)
+
   // Remplir le formulaire avec les informations de l'étudiant
-  document.getElementById("nom").value = student.nom;
-  document.getElementById("prenom").value = student.prenom;
-  document.getElementById("telephone").value = student.telephone;
-  document.getElementById("email").value = student.email;
-  document.getElementById("adresse").value = student.adresse;
-  document.getElementById("date_naissance").value = student.dateNaissance;
+  document.getElementById("modal-nom").value = student.nom;
+  document.getElementById("modal-prenom").value = student.prenom;
+  document.getElementById("modal-telephone").value = student.telephone;
+  document.getElementById("modal-email").value = student.email;
+  document.getElementById("modal-adresse").value = student.adresse;
+  document.getElementById("modal-date_naissance").value = student.dateNaissance;
 
   showForm(); // Afficher le formulaire de modification
 
   // Changer le texte du bouton de "Ajouter" à "Modifier"
-  const submitButton = document.querySelector(
-    "#student-form button[type='button']"
-  );
+  const submitButton = document.querySelector("#student-form button[type='button']");
   submitButton.textContent = "Modifier";
 
   // Réassigner l'événement onclick au bouton pour qu'il mette à jour l'étudiant
